@@ -1,0 +1,35 @@
+{
+  "label": {
+    "add": "添加",
+    "add-entity": "添加{{entity}}",
+    "all": "全部",
+    "cancel": "取消",
+    "cited-n-times": "被引用 {{count}} 次",
+    "clear-entity": "清除{{entity}}",
+    "collapse": "折叠",
+    "copy-item": "复制 {{item}}",
+    "delete": "删除",
+    "edit": "编辑",
+    "edit-entity": "编辑{{entity}}",
+    "endpoint": "终点",
+    "expand": "展开",
+    "field-required": "需要{{field}}",
+    "last": "最近",
+    "link": "链接",
+    "manage-entity": "管理{{entity}}",
+    "memory": "记忆",
+    "name": "名称",
+    "no-matching-results": "没有匹配的结果",
+    "no-results-for-filters": "没有符合这些筛选条件的结果",
+    "plus-count": "+{{count}}",
+    "reference-plural": "参考资料",
+    "save": "保存",
+    "synonym-plural": "同义词"
+  },
+  "message": {
+    "check-spelling-or-try-different-term": "请检查拼写,或尝试使用更简短、更通用的词语。",
+    "endpoint-should-be-valid": "Endpoint 端点应为有效的 URL",
+    "no-results-for-filters-description": "没有内容符合当前筛选条件。请调整筛选条件，或全部清除以查看全部内容。",
+    "url-must-start-with-http-or-https": "URL 必须以 http:// 或 https:// 开头"
+  }
+}

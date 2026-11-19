@@ -1,0 +1,484 @@
+{
+  "upstream": "https://github.com/open-metadata/OpenMetadata",
+  "tag": "2.0.8-release",
+  "commit": "dd013e20428ae77fb837332fb646d9b01301ed81",
+  "license": "Apache-2.0 (selected Java/UI/spec code only; no ingestion code)",
+  "files": [
+    {
+      "source": "openmetadata-service/src/main/java/org/openmetadata/service/aicontext/BudgetTracker.java",
+      "target": "backend/context/src/main/java/org/openmetadata/standalone/context/BudgetTracker.java",
+      "sha256": "04e2d0e11d1ced315a60c6766fe4db1530a9d2ba38f7c4ed411def10affdf1f9",
+      "changes": "Package/import boundary only; upstream algorithm retained",
+      "targetSha256": "1f004dbb38c943a8673cb0700d812bf63ef872affd2c97248400113d1dd5611c"
+    },
+    {
+      "source": "openmetadata-service/src/main/java/org/openmetadata/service/drive/ContextFileTextExtractor.java",
+      "target": "backend/context/src/main/java/org/openmetadata/standalone/context/FileService.java",
+      "sha256": "814a978485842d5fe4f9600ecd9c5ffc2b2fdbca075f891288632426f360e525",
+      "changes": "Adapt plain-text normalization and cap; new immutable blob/head-revision orchestration; PDF/Office extraction deferred",
+      "targetSha256": "4fc194226ab9403ff46492cb78abef173d572e0b20b5e665e2e2827ab3b1746b"
+    },
+    {
+      "source": "openmetadata-service/src/main/java/org/openmetadata/service/resources/context/ContextMemoryVisibility.java",
+      "target": "backend/context/src/main/java/org/openmetadata/standalone/context/MemoryVisibility.java",
+      "sha256": "202729866554093a3f86d09433193a3ab316689a6c5ca8addc74d5d9b51c548e",
+      "changes": "Adapt visibility rules to Caller principal IDs and standalone JSON contract; write roles checked separately",
+      "targetSha256": "5ae82f1faabfa9ee656d411a9ece2b7d3b3de4364102326e4e8b8cae40f8ecca"
+    },
+    {
+      "source": "openmetadata-service/src/main/java/org/openmetadata/service/aicontext/PromptText.java",
+      "target": "backend/context/src/main/java/org/openmetadata/standalone/context/PromptText.java",
+      "sha256": "c59a1b9ce38687135476b4793f27a8c2c1abcfce013505b15a2c0f7d1a6ea7fb",
+      "changes": "Package/import boundary only; upstream algorithm retained",
+      "targetSha256": "79a862476f772623fc9c39d4e89f5db9210afad6318b06747248a8dcf5b55df5"
+    },
+    {
+      "source": "openmetadata-service/src/main/java/org/openmetadata/service/util/DescriptionSanitizer.java",
+      "target": "backend/contracts/src/main/java/org/openmetadata/standalone/contracts/DescriptionSanitizer.java",
+      "sha256": "517703a63819be501b2913a7f6453231377efdd1e84ba2f28abba4a9c4117f51",
+      "changes": "Package/import boundary only; upstream algorithm retained",
+      "targetSha256": "dd685e3e79cc770ae2313d36ab2df0bddde7870b48ae5a48cf810cf16bd0d0e3"
+    },
+    {
+      "source": "openmetadata-service/src/main/java/org/openmetadata/service/util/FullyQualifiedName.java",
+      "target": "backend/contracts/src/main/java/org/openmetadata/standalone/contracts/Fqn.java",
+      "sha256": "bf106e6819cd774a92135ff03fb5af1b4072f4d7d506b384680c1430050abbcd",
+      "changes": "Adapt segment quote/unquote rules; replace global Entity/ANTLR and asset-specific helpers; reject blank decoded segments",
+      "targetSha256": "9d862753c862d37fa189cc32c8e8598f4123b0652a38f877f583d04530e81433"
+    },
+    {
+      "source": "openmetadata-spec/src/main/resources/json/schema/api/context/createContextMemory.json",
+      "target": "backend/contracts/src/main/resources/upstream-schema/api/context/createContextMemory.json",
+      "sha256": "fbe56031e868894b854d799765091b653f52259a83a6ed7efeb766ea908c769b",
+      "changes": "Unmodified upstream JSON Schema",
+      "targetSha256": "fbe56031e868894b854d799765091b653f52259a83a6ed7efeb766ea908c769b"
+    },
+    {
+      "source": "openmetadata-spec/src/main/resources/json/schema/api/data/createGlossary.json",
+      "target": "backend/contracts/src/main/resources/upstream-schema/api/data/createGlossary.json",
+      "sha256": "b4da735246b8ba42b96f22837bd902abe98a3ca825a604ca887a8727acbc7115",
+      "changes": "Unmodified upstream JSON Schema",
+      "targetSha256": "b4da735246b8ba42b96f22837bd902abe98a3ca825a604ca887a8727acbc7115"
+    },
+    {
+      "source": "openmetadata-spec/src/main/resources/json/schema/api/data/createGlossaryTerm.json",
+      "target": "backend/contracts/src/main/resources/upstream-schema/api/data/createGlossaryTerm.json",
+      "sha256": "d0f1503b330d4b81850b5b513a71b50b49fdc70cc838eecde81f290542e675c4",
+      "changes": "Unmodified upstream JSON Schema",
+      "targetSha256": "d0f1503b330d4b81850b5b513a71b50b49fdc70cc838eecde81f290542e675c4"
+    },
+    {
+      "source": "openmetadata-spec/src/main/resources/json/schema/api/data/createPage.json",
+      "target": "backend/contracts/src/main/resources/upstream-schema/api/data/createPage.json",
+      "sha256": "4b10f29621ae30532dd00137107816ff7039cafc79a1a1a0b500f5451a4e95e1",
+      "changes": "Unmodified upstream JSON Schema",
+      "targetSha256": "4b10f29621ae30532dd00137107816ff7039cafc79a1a1a0b500f5451a4e95e1"
+    },
+    {
+      "source": "openmetadata-spec/src/main/resources/json/schema/attachments/asset.json",
+      "target": "backend/contracts/src/main/resources/upstream-schema/attachments/asset.json",
+      "sha256": "8349dc3b708cb19f4ea2a141f5f9702980d5ba73ccddbf0065215cedff8ea7b9",
+      "changes": "Unmodified upstream JSON Schema",
+      "targetSha256": "8349dc3b708cb19f4ea2a141f5f9702980d5ba73ccddbf0065215cedff8ea7b9"
+    },
+    {
+      "source": "openmetadata-spec/src/main/resources/json/schema/entity/context/contextMemory.json",
+      "target": "backend/contracts/src/main/resources/upstream-schema/entity/context/contextMemory.json",
+      "sha256": "024ed1c35546dfc6b768912bc941e0ab8252576f44530661774f422e97f5d3da",
+      "changes": "Unmodified upstream JSON Schema",
+      "targetSha256": "024ed1c35546dfc6b768912bc941e0ab8252576f44530661774f422e97f5d3da"
+    },
+    {
+      "source": "openmetadata-spec/src/main/resources/json/schema/entity/data/article.json",
+      "target": "backend/contracts/src/main/resources/upstream-schema/entity/data/article.json",
+      "sha256": "057c4b409c76117b4b1e09d2eb1b8dc358abdc2f8366e2e8bbb7ff0e03cf8036",
+      "changes": "Unmodified upstream JSON Schema",
+      "targetSha256": "057c4b409c76117b4b1e09d2eb1b8dc358abdc2f8366e2e8bbb7ff0e03cf8036"
+    },
+    {
+      "source": "openmetadata-spec/src/main/resources/json/schema/entity/data/contextFile.json",
+      "target": "backend/contracts/src/main/resources/upstream-schema/entity/data/contextFile.json",
+      "sha256": "bbb9d3bef1efc51359cb56310330c0483b9a2093cb7105c227440fc6226079b7",
+      "changes": "Unmodified upstream JSON Schema",
+      "targetSha256": "bbb9d3bef1efc51359cb56310330c0483b9a2093cb7105c227440fc6226079b7"
+    },
+    {
+      "source": "openmetadata-spec/src/main/resources/json/schema/entity/data/contextFileContent.json",
+      "target": "backend/contracts/src/main/resources/upstream-schema/entity/data/contextFileContent.json",
+      "sha256": "c01e0abdf350849f5bb7fd44faa7d41445826b71e0336639c9050757c630a16f",
+      "changes": "Unmodified upstream JSON Schema",
+      "targetSha256": "c01e0abdf350849f5bb7fd44faa7d41445826b71e0336639c9050757c630a16f"
+    },
+    {
+      "source": "openmetadata-spec/src/main/resources/json/schema/entity/data/glossaryTerm.json",
+      "target": "backend/contracts/src/main/resources/upstream-schema/entity/data/glossaryTerm.json",
+      "sha256": "da63a011a29b53f8c70d3ca76edc9bfa0f6ab8f662c0cd1eb86d0b08746e9e02",
+      "changes": "Unmodified upstream JSON Schema",
+      "targetSha256": "da63a011a29b53f8c70d3ca76edc9bfa0f6ab8f662c0cd1eb86d0b08746e9e02"
+    },
+    {
+      "source": "openmetadata-spec/src/main/resources/json/schema/entity/data/page.json",
+      "target": "backend/contracts/src/main/resources/upstream-schema/entity/data/page.json",
+      "sha256": "1541196a2d5b62949aa27f15d376454475637efc3c9c3331c42cfac36a7ee670",
+      "changes": "Unmodified upstream JSON Schema",
+      "targetSha256": "1541196a2d5b62949aa27f15d376454475637efc3c9c3331c42cfac36a7ee670"
+    },
+    {
+      "source": "openmetadata-spec/src/main/resources/json/schema/entity/data/quickLink.json",
+      "target": "backend/contracts/src/main/resources/upstream-schema/entity/data/quickLink.json",
+      "sha256": "7e774ef3feb65d28c46e394059254ff882e6f9ec68c959825f1285aa9e63a937",
+      "changes": "Unmodified upstream JSON Schema",
+      "targetSha256": "7e774ef3feb65d28c46e394059254ff882e6f9ec68c959825f1285aa9e63a937"
+    },
+    {
+      "source": "openmetadata-spec/src/main/resources/json/schema/type/basic.json",
+      "target": "backend/contracts/src/main/resources/upstream-schema/type/basic.json",
+      "sha256": "eaac2f19d0d4a201724b76cd16c4e4b7270ba20fae23318396223e6939c1d2b7",
+      "changes": "Unmodified upstream JSON Schema",
+      "targetSha256": "eaac2f19d0d4a201724b76cd16c4e4b7270ba20fae23318396223e6939c1d2b7"
+    },
+    {
+      "source": "openmetadata-spec/src/main/resources/json/schema/type/changeSummaryMap.json",
+      "target": "backend/contracts/src/main/resources/upstream-schema/type/changeSummaryMap.json",
+      "sha256": "11db66ce6c46ca5041ef900279d4b0cf78c206033bd0f97621f34ca7b859c504",
+      "changes": "Unmodified upstream JSON Schema",
+      "targetSha256": "11db66ce6c46ca5041ef900279d4b0cf78c206033bd0f97621f34ca7b859c504"
+    },
+    {
+      "source": "openmetadata-spec/src/main/resources/json/schema/type/entityHistory.json",
+      "target": "backend/contracts/src/main/resources/upstream-schema/type/entityHistory.json",
+      "sha256": "e6574d24776fe717faaadfb71952a68285ae09badb30070e60810b1229cdb5e3",
+      "changes": "Unmodified upstream JSON Schema",
+      "targetSha256": "e6574d24776fe717faaadfb71952a68285ae09badb30070e60810b1229cdb5e3"
+    },
+    {
+      "source": "openmetadata-spec/src/main/resources/json/schema/type/entityReference.json",
+      "target": "backend/contracts/src/main/resources/upstream-schema/type/entityReference.json",
+      "sha256": "fb10ed9b19a05d2dfe5dc3e593573e4f569621b6e820dcf688baa3a4b0e2f47d",
+      "changes": "Unmodified upstream JSON Schema",
+      "targetSha256": "fb10ed9b19a05d2dfe5dc3e593573e4f569621b6e820dcf688baa3a4b0e2f47d"
+    },
+    {
+      "source": "openmetadata-spec/src/main/resources/json/schema/type/entityReferenceList.json",
+      "target": "backend/contracts/src/main/resources/upstream-schema/type/entityReferenceList.json",
+      "sha256": "92b9ae8bd904b1d792bab74b936e74c70f2295db9373e709bce1efeeb61ceb57",
+      "changes": "Unmodified upstream JSON Schema",
+      "targetSha256": "92b9ae8bd904b1d792bab74b936e74c70f2295db9373e709bce1efeeb61ceb57"
+    },
+    {
+      "source": "openmetadata-spec/src/main/resources/json/schema/type/status.json",
+      "target": "backend/contracts/src/main/resources/upstream-schema/type/status.json",
+      "sha256": "f5d05d11a32d9b950dd784f41be7605a27b1a17a48ac546e458c4702c08abbac",
+      "changes": "Unmodified upstream JSON Schema",
+      "targetSha256": "f5d05d11a32d9b950dd784f41be7605a27b1a17a48ac546e458c4702c08abbac"
+    },
+    {
+      "source": "openmetadata-spec/src/main/resources/json/schema/type/tagLabel.json",
+      "target": "backend/contracts/src/main/resources/upstream-schema/type/tagLabel.json",
+      "sha256": "e4a656db038f6a81ba09d42abdcdc4c38ab3ce423176eb777ea89544f4a6b04c",
+      "changes": "Unmodified upstream JSON Schema",
+      "targetSha256": "e4a656db038f6a81ba09d42abdcdc4c38ab3ce423176eb777ea89544f4a6b04c"
+    },
+    {
+      "source": "openmetadata-spec/src/main/resources/json/schema/type/tagLabelMetadata.json",
+      "target": "backend/contracts/src/main/resources/upstream-schema/type/tagLabelMetadata.json",
+      "sha256": "0691ce9036ff862b60923a4131d57f969e1f32b4815b21d45408786990038ca2",
+      "changes": "Unmodified upstream JSON Schema",
+      "targetSha256": "0691ce9036ff862b60923a4131d57f969e1f32b4815b21d45408786990038ca2"
+    },
+    {
+      "source": "openmetadata-spec/src/main/resources/json/schema/type/tagLabelRecognizerMetadata.json",
+      "target": "backend/contracts/src/main/resources/upstream-schema/type/tagLabelRecognizerMetadata.json",
+      "sha256": "f77b15815bd396585743e9c0963f884a13a322c1100a427644c2e042e01de210",
+      "changes": "Unmodified upstream JSON Schema",
+      "targetSha256": "f77b15815bd396585743e9c0963f884a13a322c1100a427644c2e042e01de210"
+    },
+    {
+      "source": "openmetadata-spec/src/main/resources/json/schema/type/termRelation.json",
+      "target": "backend/contracts/src/main/resources/upstream-schema/type/termRelation.json",
+      "sha256": "253e5a632f6706bfcf9c6578b0dcd548297e6b86c439e1b1f22e745b6661040c",
+      "changes": "Unmodified upstream JSON Schema",
+      "targetSha256": "253e5a632f6706bfcf9c6578b0dcd548297e6b86c439e1b1f22e745b6661040c"
+    },
+    {
+      "source": "openmetadata-spec/src/main/resources/json/schema/type/votes.json",
+      "target": "backend/contracts/src/main/resources/upstream-schema/type/votes.json",
+      "sha256": "7c9513db23376cd8bef7bfa3b063c168b7e9419d6d6f66ef5829d203e9d2cd20",
+      "changes": "Unmodified upstream JSON Schema",
+      "targetSha256": "7c9513db23376cd8bef7bfa3b063c168b7e9419d6d6f66ef5829d203e9d2cd20"
+    },
+    {
+      "source": "openmetadata-ui/src/main/resources/ui/src/assets/svg/action-icons/copy.svg",
+      "target": "frontend/src/upstream/assets/svg/action-icons/copy.svg",
+      "sha256": "c03501f70a6bfee2ea687ad4ef873c93d19e9d253c03410a8e389d7824e185a2",
+      "changes": "Unmodified upstream source; see SOURCE_MANIFEST.md for adapters on selected components",
+      "targetSha256": "c03501f70a6bfee2ea687ad4ef873c93d19e9d253c03410a8e389d7824e185a2"
+    },
+    {
+      "source": "openmetadata-ui/src/main/resources/ui/src/assets/svg/action-icons/dots-vertical.svg",
+      "target": "frontend/src/upstream/assets/svg/action-icons/dots-vertical.svg",
+      "sha256": "008c7d228681a3fa69a3bd0511d2646bd457e4b072be723ac8f104b1a05a42f8",
+      "changes": "Unmodified upstream source; see SOURCE_MANIFEST.md for adapters on selected components",
+      "targetSha256": "008c7d228681a3fa69a3bd0511d2646bd457e4b072be723ac8f104b1a05a42f8"
+    },
+    {
+      "source": "openmetadata-ui/src/main/resources/ui/src/assets/svg/action-icons/edit.svg",
+      "target": "frontend/src/upstream/assets/svg/action-icons/edit.svg",
+      "sha256": "ea041a26d39f750a8f0d4a3164d24cf3b49a7a7e5ed73abf1d4832ae31ac5ead",
+      "changes": "Unmodified upstream source; see SOURCE_MANIFEST.md for adapters on selected components",
+      "targetSha256": "ea041a26d39f750a8f0d4a3164d24cf3b49a7a7e5ed73abf1d4832ae31ac5ead"
+    },
+    {
+      "source": "openmetadata-ui/src/main/resources/ui/src/assets/svg/action-icons/trash.svg",
+      "target": "frontend/src/upstream/assets/svg/action-icons/trash.svg",
+      "sha256": "866947ccdd2a466c49484be637ff89439c854baa537c067f4b4c105ba6e3db89",
+      "changes": "Unmodified upstream source; see SOURCE_MANIFEST.md for adapters on selected components",
+      "targetSha256": "866947ccdd2a466c49484be637ff89439c854baa537c067f4b4c105ba6e3db89"
+    },
+    {
+      "source": "openmetadata-ui/src/main/resources/ui/src/assets/svg/comment.svg",
+      "target": "frontend/src/upstream/assets/svg/comment.svg",
+      "sha256": "e183579a6f923f6c07ee3a3d984ecaff1f1b2a1f4eb6da74c1578143cbf20d3b",
+      "changes": "Unmodified upstream source; see SOURCE_MANIFEST.md for adapters on selected components",
+      "targetSha256": "e183579a6f923f6c07ee3a3d984ecaff1f1b2a1f4eb6da74c1578143cbf20d3b"
+    },
+    {
+      "source": "openmetadata-ui/src/main/resources/ui/src/assets/svg/common/clock.svg",
+      "target": "frontend/src/upstream/assets/svg/common/clock.svg",
+      "sha256": "d049d22ed55210de044a174a6809447de8bd8d8b3408af53dda522269741dab0",
+      "changes": "Unmodified upstream source; see SOURCE_MANIFEST.md for adapters on selected components",
+      "targetSha256": "d049d22ed55210de044a174a6809447de8bd8d8b3408af53dda522269741dab0"
+    },
+    {
+      "source": "openmetadata-ui/src/main/resources/ui/src/assets/svg/common/no-filter-results.svg",
+      "target": "frontend/src/upstream/assets/svg/common/no-filter-results.svg",
+      "sha256": "cc246a17b5fc64648d7158e670abc9bce2088971f498afb7b99d52d5d8c471fc",
+      "changes": "Unmodified upstream source; see SOURCE_MANIFEST.md for adapters on selected components",
+      "targetSha256": "cc246a17b5fc64648d7158e670abc9bce2088971f498afb7b99d52d5d8c471fc"
+    },
+    {
+      "source": "openmetadata-ui/src/main/resources/ui/src/assets/svg/common/no-search-result.svg",
+      "target": "frontend/src/upstream/assets/svg/common/no-search-result.svg",
+      "sha256": "ef84fffa0f5c9dc7dda35e767509c0bee6e05db4169b79e773ba0f2157c60d9e",
+      "changes": "Unmodified upstream source; see SOURCE_MANIFEST.md for adapters on selected components",
+      "targetSha256": "ef84fffa0f5c9dc7dda35e767509c0bee6e05db4169b79e773ba0f2157c60d9e"
+    },
+    {
+      "source": "openmetadata-ui/src/main/resources/ui/src/assets/svg/edit-new.svg",
+      "target": "frontend/src/upstream/assets/svg/edit-new.svg",
+      "sha256": "8bb745af293fda66c10a7c0c8d0cae3ad88cf0773ebb78d667752c090663a10f",
+      "changes": "Unmodified upstream source; see SOURCE_MANIFEST.md for adapters on selected components",
+      "targetSha256": "8bb745af293fda66c10a7c0c8d0cae3ad88cf0773ebb78d667752c090663a10f"
+    },
+    {
+      "source": "openmetadata-ui/src/main/resources/ui/src/assets/svg/ic-card-expand-collapse.svg",
+      "target": "frontend/src/upstream/assets/svg/ic-card-expand-collapse.svg",
+      "sha256": "6811a8143b17811a6403b19e284ecf0a1f9701acfb76eb09f5573e7b9a0da71b",
+      "changes": "Unmodified upstream source; see SOURCE_MANIFEST.md for adapters on selected components",
+      "targetSha256": "6811a8143b17811a6403b19e284ecf0a1f9701acfb76eb09f5573e7b9a0da71b"
+    },
+    {
+      "source": "openmetadata-ui/src/main/resources/ui/src/assets/svg/ic-delete.svg",
+      "target": "frontend/src/upstream/assets/svg/ic-delete.svg",
+      "sha256": "fd116eb613d4a1b5e692f2cbc5c8894df406e43261eeb0e681adfb06ae320982",
+      "changes": "Unmodified upstream source; see SOURCE_MANIFEST.md for adapters on selected components",
+      "targetSha256": "fd116eb613d4a1b5e692f2cbc5c8894df406e43261eeb0e681adfb06ae320982"
+    },
+    {
+      "source": "openmetadata-ui/src/main/resources/ui/src/assets/svg/ic-expand-right.svg",
+      "target": "frontend/src/upstream/assets/svg/ic-expand-right.svg",
+      "sha256": "d5767be25d0923c980c72bd34e3d1dea937d997ccd87e8bb2072728657a35243",
+      "changes": "Unmodified upstream source; see SOURCE_MANIFEST.md for adapters on selected components",
+      "targetSha256": "d5767be25d0923c980c72bd34e3d1dea937d997ccd87e8bb2072728657a35243"
+    },
+    {
+      "source": "openmetadata-ui/src/main/resources/ui/src/assets/svg/plus-primary.svg",
+      "target": "frontend/src/upstream/assets/svg/plus-primary.svg",
+      "sha256": "4499d5f4d45e3f40f33b10a8f8c05b94ca3659a9a4ed367ff7173aed89e5f878",
+      "changes": "Unmodified upstream source; see SOURCE_MANIFEST.md for adapters on selected components",
+      "targetSha256": "4499d5f4d45e3f40f33b10a8f8c05b94ca3659a9a4ed367ff7173aed89e5f878"
+    },
+    {
+      "source": "openmetadata-ui/src/main/resources/ui/src/assets/svg/request-icon.svg",
+      "target": "frontend/src/upstream/assets/svg/request-icon.svg",
+      "sha256": "c89ffbdee3aec896722855a891da4535261a9d29a20fa8033a08303e238c2c2d",
+      "changes": "Unmodified upstream source; see SOURCE_MANIFEST.md for adapters on selected components",
+      "targetSha256": "c89ffbdee3aec896722855a891da4535261a9d29a20fa8033a08303e238c2c2d"
+    },
+    {
+      "source": "openmetadata-ui/src/main/resources/ui/src/components/ContextCenter/ContextKnowledgePillarCard/ContextKnowledgePillarCard.component.tsx",
+      "target": "frontend/src/upstream/components/ContextCenter/ContextKnowledgePillarCard/ContextKnowledgePillarCard.component.tsx",
+      "sha256": "b1671ac7b38bf3729c9cdff0ab90c0ab6c13ff1ecc74271a8c11de2fab36ed9e",
+      "changes": "Unmodified upstream source; see SOURCE_MANIFEST.md for adapters on selected components",
+      "targetSha256": "b1671ac7b38bf3729c9cdff0ab90c0ab6c13ff1ecc74271a8c11de2fab36ed9e"
+    },
+    {
+      "source": "openmetadata-ui/src/main/resources/ui/src/components/ContextCenter/ContextKnowledgePillarCard/ContextKnowledgePillarCard.interface.ts",
+      "target": "frontend/src/upstream/components/ContextCenter/ContextKnowledgePillarCard/ContextKnowledgePillarCard.interface.ts",
+      "sha256": "c096408bd5bf3039d5aaff0dbf63d6c90ca324bf20fe0007a98d24755bf22707",
+      "changes": "Unmodified upstream source; see SOURCE_MANIFEST.md for adapters on selected components",
+      "targetSha256": "c096408bd5bf3039d5aaff0dbf63d6c90ca324bf20fe0007a98d24755bf22707"
+    },
+    {
+      "source": "openmetadata-ui/src/main/resources/ui/src/components/ContextCenter/MemoriesView/MemoriesView.component.tsx",
+      "target": "frontend/src/upstream/components/ContextCenter/MemoriesView/MemoriesView.component.tsx",
+      "sha256": "891fe0091f472790b0717c21fdc937474d3524b18d45f24dca3029373b06017d",
+      "changes": "Keep view markup; replace whole-platform display/profile/icon helpers with local adapters; hash-router deep links",
+      "targetSha256": "bad1602bc555c77a70db369fa9b1d4797bdbaa91264697588bf58627d271a39a"
+    },
+    {
+      "source": "openmetadata-ui/src/main/resources/ui/src/components/ContextCenter/MemoriesView/MemoriesView.interface.ts",
+      "target": "frontend/src/upstream/components/ContextCenter/MemoriesView/MemoriesView.interface.ts",
+      "sha256": "04405d5cc2669f125b3d0d6c6af0d214d2d793277ef991f6dd8fcd653e76e4c8",
+      "changes": "Unmodified upstream source; see SOURCE_MANIFEST.md for adapters on selected components",
+      "targetSha256": "04405d5cc2669f125b3d0d6c6af0d214d2d793277ef991f6dd8fcd653e76e4c8"
+    },
+    {
+      "source": "openmetadata-ui/src/main/resources/ui/src/components/ContextCenter/MemoriesView/MemoriesView.less",
+      "target": "frontend/src/upstream/components/ContextCenter/MemoriesView/MemoriesView.less",
+      "sha256": "d2a4faba371829b22a07b77e3f3f138040212e59e9a832acb86b40bb2fa27be9",
+      "changes": "Unmodified upstream source; see SOURCE_MANIFEST.md for adapters on selected components",
+      "targetSha256": "d2a4faba371829b22a07b77e3f3f138040212e59e9a832acb86b40bb2fa27be9"
+    },
+    {
+      "source": "openmetadata-ui/src/main/resources/ui/src/components/CopyLinkButton/CopyLinkButton.component.tsx",
+      "target": "frontend/src/upstream/components/CopyLinkButton/CopyLinkButton.component.tsx",
+      "sha256": "2a8daaab7186a2e4ad3d34df805f30a60589a5591b34de0f931bc75a64278a8a",
+      "changes": "Unmodified upstream source; see SOURCE_MANIFEST.md for adapters on selected components",
+      "targetSha256": "2a8daaab7186a2e4ad3d34df805f30a60589a5591b34de0f931bc75a64278a8a"
+    },
+    {
+      "source": "openmetadata-ui/src/main/resources/ui/src/components/Glossary/GlossaryTerms/GlossaryTermReferencesModal.component.tsx",
+      "target": "frontend/src/upstream/components/Glossary/GlossaryTerms/GlossaryTermReferencesModal.component.tsx",
+      "sha256": "af6ea77073b8fbd05d2d2f3b26ee26227229aa0f01e431c1398afbb792262874",
+      "changes": "Keep original form; add missing effect dependencies",
+      "targetSha256": "181771758d130941b3e226b01601035c58d6e8892c397de921686543cde1a984"
+    },
+    {
+      "source": "openmetadata-ui/src/main/resources/ui/src/components/Glossary/GlossaryTerms/tabs/GlossaryTermSynonyms.tsx",
+      "target": "frontend/src/upstream/components/Glossary/GlossaryTerms/tabs/GlossaryTermSynonyms.tsx",
+      "sha256": "e29b3ed14826c828295bfbc23b9bbd69d7707802ab3e3f807b51779743ecef5c",
+      "changes": "Keep synonym UI/editing; replace GenericProvider with props, remove full-platform version-diff rendering, handle failed saves and empty synonyms",
+      "targetSha256": "23db792aec3dac2f89af532fb8a5d674ed54d6006ff30497a60fd30859bb384b"
+    },
+    {
+      "source": "openmetadata-ui/src/main/resources/ui/src/components/common/ExpandableCard/ExpandableCard.tsx",
+      "target": "frontend/src/upstream/components/common/ExpandableCard/ExpandableCard.tsx",
+      "sha256": "12ed50199e6aee46fff15c2a88ab0ebc01e05a5dc9a1fd118e2ff0b245a52622",
+      "changes": "Unmodified upstream source; see SOURCE_MANIFEST.md for adapters on selected components",
+      "targetSha256": "12ed50199e6aee46fff15c2a88ab0ebc01e05a5dc9a1fd118e2ff0b245a52622"
+    },
+    {
+      "source": "openmetadata-ui/src/main/resources/ui/src/components/common/IconButtons/EditIconButton.tsx",
+      "target": "frontend/src/upstream/components/common/IconButtons/EditIconButton.tsx",
+      "sha256": "23ec79c3c560c96a35fe862a2ccbf1ccb29ff4ac4ba5b195b06e6e8963d41924",
+      "changes": "Unmodified upstream source; see SOURCE_MANIFEST.md for adapters on selected components",
+      "targetSha256": "23ec79c3c560c96a35fe862a2ccbf1ccb29ff4ac4ba5b195b06e6e8963d41924"
+    },
+    {
+      "source": "openmetadata-ui/src/main/resources/ui/src/components/common/TagButton/TagButton.component.tsx",
+      "target": "frontend/src/upstream/components/common/TagButton/TagButton.component.tsx",
+      "sha256": "1911ade05ee44c1170aa48212cd49bb6d777ef1df621a7d0a789f9c3c60a6604",
+      "changes": "Unmodified upstream source; see SOURCE_MANIFEST.md for adapters on selected components",
+      "targetSha256": "1911ade05ee44c1170aa48212cd49bb6d777ef1df621a7d0a789f9c3c60a6604"
+    },
+    {
+      "source": "openmetadata-ui/src/main/resources/ui/src/generated/api/context/createContextMemory.ts",
+      "target": "frontend/src/upstream/generated/api/context/createContextMemory.ts",
+      "sha256": "fd7199b9619e3bbc9e3ea43d09c1aaab80b7270263531e7a5f9881615a01bb3c",
+      "changes": "Unmodified upstream source; see SOURCE_MANIFEST.md for adapters on selected components",
+      "targetSha256": "fd7199b9619e3bbc9e3ea43d09c1aaab80b7270263531e7a5f9881615a01bb3c"
+    },
+    {
+      "source": "openmetadata-ui/src/main/resources/ui/src/generated/api/data/createGlossary.ts",
+      "target": "frontend/src/upstream/generated/api/data/createGlossary.ts",
+      "sha256": "6d4f998b483463b1c389d4a16b8a14991c8730a3cccd90f8e7e374ac9bc3dfaf",
+      "changes": "Unmodified upstream source; see SOURCE_MANIFEST.md for adapters on selected components",
+      "targetSha256": "6d4f998b483463b1c389d4a16b8a14991c8730a3cccd90f8e7e374ac9bc3dfaf"
+    },
+    {
+      "source": "openmetadata-ui/src/main/resources/ui/src/generated/api/data/createGlossaryTerm.ts",
+      "target": "frontend/src/upstream/generated/api/data/createGlossaryTerm.ts",
+      "sha256": "ee6b37822b7d1069875ba70d642dde65fc1729e4c16c719a7c81e96617b0ed5a",
+      "changes": "Unmodified upstream source; see SOURCE_MANIFEST.md for adapters on selected components",
+      "targetSha256": "ee6b37822b7d1069875ba70d642dde65fc1729e4c16c719a7c81e96617b0ed5a"
+    },
+    {
+      "source": "openmetadata-ui/src/main/resources/ui/src/generated/api/data/createPage.ts",
+      "target": "frontend/src/upstream/generated/api/data/createPage.ts",
+      "sha256": "d35092f1d513c3f2aa46fe01bdd0b1431270a07ce60262b18d5bb149fc406bf4",
+      "changes": "Unmodified upstream source; see SOURCE_MANIFEST.md for adapters on selected components",
+      "targetSha256": "d35092f1d513c3f2aa46fe01bdd0b1431270a07ce60262b18d5bb149fc406bf4"
+    },
+    {
+      "source": "openmetadata-ui/src/main/resources/ui/src/generated/entity/context/contextMemory.ts",
+      "target": "frontend/src/upstream/generated/entity/context/contextMemory.ts",
+      "sha256": "e5729646324f2375c66fd1b029f970276e8e7f5f5ebc1787d37def672be38f69",
+      "changes": "Unmodified upstream source; see SOURCE_MANIFEST.md for adapters on selected components",
+      "targetSha256": "e5729646324f2375c66fd1b029f970276e8e7f5f5ebc1787d37def672be38f69"
+    },
+    {
+      "source": "openmetadata-ui/src/main/resources/ui/src/generated/entity/data/contextFile.ts",
+      "target": "frontend/src/upstream/generated/entity/data/contextFile.ts",
+      "sha256": "1847a08112ccdf20033d4355649e676a17e4db182c0cae9c1a67c732c49a5346",
+      "changes": "Unmodified upstream source; see SOURCE_MANIFEST.md for adapters on selected components",
+      "targetSha256": "1847a08112ccdf20033d4355649e676a17e4db182c0cae9c1a67c732c49a5346"
+    },
+    {
+      "source": "openmetadata-ui/src/main/resources/ui/src/generated/entity/data/glossary.ts",
+      "target": "frontend/src/upstream/generated/entity/data/glossary.ts",
+      "sha256": "0eecc2763e4addea081103c6a38b9c599a72bc9e0f8d47c326b010c880dd8856",
+      "changes": "Unmodified upstream source; see SOURCE_MANIFEST.md for adapters on selected components",
+      "targetSha256": "0eecc2763e4addea081103c6a38b9c599a72bc9e0f8d47c326b010c880dd8856"
+    },
+    {
+      "source": "openmetadata-ui/src/main/resources/ui/src/generated/entity/data/glossaryTerm.ts",
+      "target": "frontend/src/upstream/generated/entity/data/glossaryTerm.ts",
+      "sha256": "18327c4b9f6bcacd0c07b5e0c42efe6c1f5870efec33e34ffdadc828aedb8c3d",
+      "changes": "Unmodified upstream source; see SOURCE_MANIFEST.md for adapters on selected components",
+      "targetSha256": "18327c4b9f6bcacd0c07b5e0c42efe6c1f5870efec33e34ffdadc828aedb8c3d"
+    },
+    {
+      "source": "openmetadata-ui/src/main/resources/ui/src/generated/entity/data/page.ts",
+      "target": "frontend/src/upstream/generated/entity/data/page.ts",
+      "sha256": "6698702d3849dafefa2c052f3aba0aeea1797ae508571f66f9319c832b8920d6",
+      "changes": "Unmodified upstream source; see SOURCE_MANIFEST.md for adapters on selected components",
+      "targetSha256": "6698702d3849dafefa2c052f3aba0aeea1797ae508571f66f9319c832b8920d6"
+    },
+    {
+      "source": "openmetadata-ui/src/main/resources/ui/src/hooks/useClipBoard.ts",
+      "target": "frontend/src/upstream/hooks/useClipBoard.ts",
+      "sha256": "3ef3b76d2178cefcf70f0efcd1781b754ed42d69b22f3e48328648aad87b2804",
+      "changes": "Keep clipboard behavior; optional calls and empty catch bindings for standalone lint",
+      "targetSha256": "f7eec877946dbd4d91b4b337e0aed4039a73145d0f4fcfb32cb271cf82b00e2d"
+    },
+    {
+      "source": "openmetadata-ui/src/main/resources/ui/src/locale/languages/en-us.json",
+      "target": "frontend/src/upstream/locale/languages/en-us.json",
+      "sha256": "319370684160b334b76ea2cd2108e93647fe91d23c28b9f1858b8d2e55789303",
+      "changes": "Select only 29 keys used by migrated components, including plural variants; retain upstream translations",
+      "targetSha256": "0c3d1506e76d38a11b89dfbf92e4d253182c82d65d3b0f774fd950fc162f49fe"
+    },
+    {
+      "source": "openmetadata-ui/src/main/resources/ui/src/locale/languages/zh-cn.json",
+      "target": "frontend/src/upstream/locale/languages/zh-cn.json",
+      "sha256": "f6b25d4349b0d4ed1d11e6483bd80d9725dc50117755db9812afa0ed03c90d3c",
+      "changes": "Select only 29 keys used by migrated components, including plural variants; retain upstream translations",
+      "targetSha256": "94b675fbdf428b374b6079c1bee7bfec41f9ac457b40874c9a2ae61f80f45ce0"
+    },
+    {
+      "source": "openmetadata-ui/src/main/resources/ui/src/utils/EntityVersionUtils.interface.ts",
+      "target": "frontend/src/upstream/utils/EntityVersionUtils.interface.ts",
+      "sha256": "a073247e4ec682a1f54dadb0ac78bc18282d9853faeb3265aa6f44a2739fb17f",
+      "changes": "Extract only VersionStatus; exclude asset/service version-page type dependencies",
+      "targetSha256": "14f6d59bb17ee9c8ded6407f2ed74271aa2b8376fe638a3be5bd306ca0624a49"
+    },
+    {
+      "source": "openmetadata-ui/src/main/resources/ui/src/utils/GlossaryPureUtils.ts",
+      "target": "frontend/src/upstream/utils/GlossaryTree.ts",
+      "sha256": "dc92a12996e25f58166f8c8b9d071c3bc181873c9a1388e99a5642b17ddc5dee",
+      "changes": "Extract buildTree; use the glossary type string instead of the full entity enum",
+      "targetSha256": "752b39d7844ece40bd5e5b0a7da46716aea2c27a574b2dc3c28bbe728faf83ea"
+    }
+  ]
+}
