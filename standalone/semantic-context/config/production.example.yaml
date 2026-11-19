@@ -1,0 +1,29 @@
+server:
+  applicationConnectors:
+    - type: http
+      port: ${SCM_PORT:-8585}
+      bindHost: ${SCM_BIND_HOST:-0.0.0.0}
+      maxRequestHeaderSize: 16KiB
+  adminConnectors:
+    - type: http
+      port: ${SCM_ADMIN_PORT:-8586}
+      bindHost: 127.0.0.1
+  requestLog:
+    appenders:
+      - type: console
+        threshold: WARN
+jdbcUrl: ${SCM_JDBC_URL:-jdbc:postgresql://127.0.0.1:5432/semantic_context}
+databaseUser: ${SCM_DB_USER:-semantic_context}
+databasePassword: ${SCM_DB_PASSWORD:-}
+blobDirectory: ${SCM_BLOB_DIRECTORY:-.runtime/blobs}
+development: false
+identities:
+  - token: ${SCM_API_TOKEN:-}
+    id: 00000000-0000-0000-0000-000000000001
+    name: developer
+    admin: true
+    scopes: [glossary:write, context:write]
+logging:
+  level: INFO
+  loggers:
+    org.eclipse.jetty: WARN

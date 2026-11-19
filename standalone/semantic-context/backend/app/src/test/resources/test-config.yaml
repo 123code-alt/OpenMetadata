@@ -1,0 +1,31 @@
+server:
+  applicationConnectors:
+    - type: http
+      port: 0
+      bindHost: 127.0.0.1
+  adminConnectors:
+    - type: http
+      port: 0
+      bindHost: 127.0.0.1
+  requestLog:
+    appenders: []
+jdbcUrl: jdbc:h2:mem:semantic_context_test;MODE=PostgreSQL;DATABASE_TO_LOWER=TRUE;DB_CLOSE_DELAY=-1
+databaseUser: sa
+databasePassword: ""
+blobDirectory: target/test-blobs
+development: false
+identities:
+  - token: fixture-alice
+    id: 00000000-0000-0000-0000-00000000000a
+    name: alice
+    scopes: [glossary:write, context:write]
+  - token: fixture-bob
+    id: 00000000-0000-0000-0000-00000000000b
+    name: bob
+    principalIds: ["team:00000000-0000-0000-0000-00000000000c"]
+    scopes: [glossary:write, context:write]
+  - token: fixture-reader
+    id: 00000000-0000-0000-0000-00000000000d
+    name: reader
+logging:
+  level: WARN
