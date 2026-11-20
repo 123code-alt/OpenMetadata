@@ -1,0 +1,13 @@
+**/target/
+**/node_modules/
+frontend/dist/
+ui-core/dist/
+dist/
+frontend/test-results/
+frontend/playwright-report/
+.runtime/
+.env
+.env.*
+!.env.example
+*.log
+*.tsbuildinfo

@@ -1,0 +1,1 @@
+export { fontSizeClass } from './tailwindClasses';

@@ -1,0 +1,35 @@
+{
+  "label": {
+    "add": "Add",
+    "add-entity": "Add {{entity}}",
+    "all": "All",
+    "cancel": "Cancel",
+    "cited-n-times": "Cited {{count}} times",
+    "clear-entity": "Clear {{entity}}",
+    "collapse": "Collapse",
+    "copy-item": "Copy {{item}}",
+    "delete": "Delete",
+    "edit": "Edit",
+    "edit-entity": "Edit {{entity}}",
+    "endpoint": "Endpoint",
+    "expand": "Expand",
+    "field-required": "{{field}} is required",
+    "last": "Last",
+    "link": "Link",
+    "manage-entity": "Manage {{entity}}",
+    "memory": "Memory",
+    "name": "Name",
+    "no-matching-results": "No matching results",
+    "no-results-for-filters": "No results for these filters",
+    "plus-count": "+{{count}}",
+    "reference-plural": "References",
+    "save": "Save",
+    "synonym-plural": "Synonyms"
+  },
+  "message": {
+    "check-spelling-or-try-different-term": "Check the spelling, or try a shorter or more general term.",
+    "endpoint-should-be-valid": "Endpoint should be valid URL.",
+    "no-results-for-filters-description": "Nothing matches the current filters. Adjust them, or clear all to see everything.",
+    "url-must-start-with-http-or-https": "URL must start with http:// or https://"
+  }
+}
