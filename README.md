@@ -4,8 +4,10 @@
 
 - 后端：JDK 21、Dropwizard/JDBI，五个 Maven 模块。
 - 前端：复用 OpenMetadata 2.0.8 的组件和主题；共享 UI 已裁剪到 18 个组件及其 32 份源码依赖。
-- 部署：前端编译成静态资源放进 Java JAR，页面与 API 共用 **8585**。应用直接运行 Java，Docker 仅运行 PostgreSQL。
+- 部署：前端编译成静态资源放进 Java JAR，页面与 API 共用 **8585**。应用直接运行 Java，可连接已有 PostgreSQL，或用 Docker 单独运行数据库。
 - 功能：术语库/术语层级、同义词与关联、文章、记忆共享、文本文件版本、显式 AI 上下文组装。当前验证版只依赖 PostgreSQL，无需搜索或模型服务。
+
+**Windows 原生源码部署：**见 [Windows / PowerShell 部署教程](docs/WINDOWS.md)，直接连接已有 PostgreSQL，包含构建、启动、验证和重启步骤。
 
 ## 在 Linux / WSL 上从源码部署
 

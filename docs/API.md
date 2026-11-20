@@ -1,6 +1,6 @@
 # 本轮接口
 
-前缀 `/api/v1`。默认使用 `Authorization: Bearer <配置令牌>`。配置与令牌来自根目录 `.env`，页面提供令牌登录。
+前缀 `/api/v1`。默认使用 `Authorization: Bearer <配置令牌>`，页面提供令牌登录。Linux / WSL 脚本从根目录 `.env` 加载配置；Windows 原生部署使用 [Windows 教程](WINDOWS.md)生成的 `.runtime/windows-config.json`。
 
 | 路径 | 方法 | 用途 |
 | --- | --- | --- |
