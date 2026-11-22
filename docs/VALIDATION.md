@@ -18,3 +18,20 @@
 截图来自当前最小分支的真实浏览器流程：[术语库](screenshots/glossary.png)、[记忆](screenshots/memories.png)、[上下文预览](screenshots/context-preview.png)。
 
 验证仅覆盖 README 列明的功能子集，完整原版页面、审批、向量/模型服务和 MCP 不在本轮范围。
+
+## 2026-11-22：Windows / IDEA 教程与 schema 隔离
+
+验证环境为 Linux、JDK 21、Maven 3.9.9、PostgreSQL 15.20。测试在云端 PG 中创建临时数据库，模拟同库中已有的原 schema 和数据；没有连接用户的 Windows 数据库。
+
+| 检查 | 结果 |
+| --- | --- |
+| Windows 配置模板 | `config/windows-idea.example.json` 通过应用 `check` 校验；默认 JDBC URL 显式包含 `currentSchema=semantic_context_poc` |
+| 文档 SQL | 从 Windows 教程提取角色、CONNECT 授权、schema 创建和权限 SQL，在临时数据库中执行通过 |
+| 同库 schema 隔离 | 模拟 `public` 中已有业务表及同名 `sc_entity`；以新账号启动后，四张应用表全部创建在 `semantic_context_poc`，原表和数据保持不变 |
+| 启动、页面和持久化 | JAR 入口与普通 Java 主类入口分别启动成功；页面 200、数据库与静态 UI 健康、带令牌创建和读取术语库、重启后读取均通过 |
+| 缺失 schema | JDBC 指向不存在的 schema 时启动失败，未回退到 `public` 写入 |
+| Java 检查 | `mvn spotless:check test` 通过，13 项后端测试全部通过 |
+
+临时数据库及专用角色已在验证后删除；实际测试凭据与输出只保存在被忽略的 `.runtime` 下。本轮没有修改 Java 业务代码、原版 OpenMetadata schema 或 ES 索引。
+
+Windows 教程逐项列出 Maven/Yarn 命令、IDEA Maven 打包及 JAR/Application 运行配置；尚未在 Windows 实机上执行 IDEA 导入、构建和 Run/Debug。

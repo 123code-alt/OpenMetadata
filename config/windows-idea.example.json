@@ -1,0 +1,40 @@
+{
+  "server": {
+    "applicationConnectors": [
+      {
+        "type": "http",
+        "port": 8585,
+        "bindHost": "127.0.0.1",
+        "maxRequestHeaderSize": "16KiB"
+      }
+    ],
+    "adminConnectors": [
+      {
+        "type": "http",
+        "port": 8586,
+        "bindHost": "127.0.0.1"
+      }
+    ],
+    "requestLog": {
+      "appenders": [{ "type": "console", "threshold": "WARN" }]
+    }
+  },
+  "jdbcUrl": "jdbc:postgresql://127.0.0.1:5432/openmetadata_db?currentSchema=semantic_context_poc",
+  "databaseUser": "semantic_context_app",
+  "databasePassword": "REPLACE_WITH_YOUR_NEW_PASSWORD",
+  "blobDirectory": ".runtime/blobs",
+  "development": false,
+  "identities": [
+    {
+      "token": "REPLACE_WITH_YOUR_GENERATED_API_TOKEN",
+      "id": "00000000-0000-0000-0000-000000000001",
+      "name": "admin",
+      "admin": true,
+      "scopes": ["glossary:write", "context:write"]
+    }
+  ],
+  "logging": {
+    "level": "INFO",
+    "loggers": { "org.eclipse.jetty": "WARN" }
+  }
+}

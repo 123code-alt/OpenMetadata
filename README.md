@@ -7,7 +7,7 @@
 - 部署：前端编译成静态资源放进 Java JAR，页面与 API 共用 **8585**。应用直接运行 Java，可连接已有 PostgreSQL，或用 Docker 单独运行数据库。
 - 功能：术语库/术语层级、同义词与关联、文章、记忆共享、文本文件版本、显式 AI 上下文组装。当前验证版只依赖 PostgreSQL，无需搜索或模型服务。
 
-**Windows 原生源码部署：**见 [Windows / PowerShell 部署教程](docs/WINDOWS.md)，直接连接已有 PostgreSQL，包含构建、启动、验证和重启步骤。
+**Windows + IDEA 源码部署：**见 [逐步构建和启动教程](docs/WINDOWS.md)。复用已有 PostgreSQL 数据库，另建 `semantic_context_poc` schema；包含显式 SQL、Yarn/Maven 命令、IDEA 打包及 Run/Debug 配置。已有 ES 无需调整。
 
 ## 在 Linux / WSL 上从源码部署
 

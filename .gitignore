@@ -11,3 +11,5 @@ frontend/playwright-report/
 !.env.example
 *.log
 *.tsbuildinfo
+.idea/
+*.iml
