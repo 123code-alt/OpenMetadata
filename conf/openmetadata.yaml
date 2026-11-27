@@ -78,7 +78,7 @@ server:
 
   adminConnectors:
     - type: http
-      bindHost: ${SERVER_HOST:-0.0.0.0}
+      bindHost: ${SERVER_ADMIN_HOST:-127.0.0.1}
       port: ${SERVER_ADMIN_PORT:-8586}
       acceptorThreads: 1  # Admin endpoint needs minimal resources
       selectorThreads: 1

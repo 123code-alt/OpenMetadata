@@ -20,7 +20,10 @@ import io.modelcontextprotocol.spec.McpSchema;
 import java.security.Principal;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.openmetadata.mcp.util.McpResponseTrim;
 import org.openmetadata.schema.entity.app.mcp.McpToolCallUsage;
 import org.openmetadata.service.limits.Limits;
@@ -43,6 +46,34 @@ class DefaultToolContextTest {
     assertThat(outcome.result().isError()).isTrue();
     assertThat(outcome.errorCategory()).isEqualTo(McpToolCallUsage.ErrorCategory.VALIDATION);
     assertThat(outcome.latencyMs()).isGreaterThanOrEqualTo(0L);
+  }
+
+  @ParameterizedTest
+  @ValueSource(
+      strings = {
+        "get_entity_lineage",
+        "create_lineage",
+        "get_test_definitions",
+        "create_test_case",
+        "root_cause_analysis"
+      })
+  void removedDistributionToolsAreNeitherAdvertisedNorCallable(String toolName) {
+    DefaultToolContext context = new DefaultToolContext();
+    assertThat(context.loadToolsDefinitionsFromJson("json/data/mcp/tools.json"))
+        .extracting(McpSchema.Tool::name)
+        .doesNotContain(toolName);
+    CatalogSecurityContext securityContext =
+        new CatalogSecurityContext(() -> "alice", "http", "Bearer", Set.of());
+    DefaultToolContext.CallToolOutcome outcome =
+        context.callToolWithMetadata(
+            null,
+            null,
+            toolName,
+            securityContext,
+            new McpSchema.CallToolRequest(toolName, Map.of()));
+    assertThat(outcome.result().isError()).isTrue();
+    assertThat(outcome.errorCategory()).isEqualTo(McpToolCallUsage.ErrorCategory.VALIDATION);
+    assertThat(textOf(outcome.result())).contains("Unknown function: " + toolName);
   }
 
   @Test

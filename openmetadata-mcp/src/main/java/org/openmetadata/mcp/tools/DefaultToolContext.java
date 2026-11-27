@@ -109,22 +109,6 @@ public class DefaultToolContext {
           tool = new PatchEntityTool();
           result = tool.execute(authorizer, securityContext, params);
           break;
-        case "get_entity_lineage":
-          tool = new GetLineageTool();
-          result = tool.execute(authorizer, securityContext, params);
-          break;
-        case "create_lineage":
-          result = new LineageTool().execute(authorizer, securityContext, params);
-          break;
-        case "get_test_definitions":
-          result = new TestDefinitionsTool().execute(authorizer, securityContext, params);
-          break;
-        case "create_test_case":
-          result = new CreateTestCaseTool().execute(authorizer, limits, securityContext, params);
-          break;
-        case "root_cause_analysis":
-          result = new RootCauseAnalysisTool().execute(authorizer, securityContext, params);
-          break;
         default:
           return new CallToolOutcome(
               errorResult(errorPayload("Unknown function: " + toolName, STATUS_BAD_REQUEST)),
