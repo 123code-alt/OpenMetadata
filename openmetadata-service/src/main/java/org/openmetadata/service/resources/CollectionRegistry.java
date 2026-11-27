@@ -38,6 +38,7 @@ import org.openmetadata.schema.Function;
 import org.openmetadata.schema.type.CollectionDescriptor;
 import org.openmetadata.schema.type.CollectionInfo;
 import org.openmetadata.service.OpenMetadataApplicationConfig;
+import org.openmetadata.service.distribution.GovernanceContextProfile;
 import org.openmetadata.service.limits.Limits;
 import org.openmetadata.service.security.Authorizer;
 import org.openmetadata.service.security.auth.AuthenticatorHandler;
@@ -232,6 +233,9 @@ public final class CollectionRegistry {
       List<Class<?>> collectionClasses = classList.loadClasses();
       List<CollectionDetails> collections = new ArrayList<>();
       for (Class<?> cl : collectionClasses) {
+        if (!GovernanceContextProfile.includesResource(cl.getName())) {
+          continue;
+        }
         CollectionDetails cd = getCollection(cl);
         collections.add(cd);
       }

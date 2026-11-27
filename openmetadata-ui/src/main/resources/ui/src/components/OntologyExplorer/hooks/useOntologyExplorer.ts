@@ -19,7 +19,6 @@ import { EntityType, TabSpecificField } from '../../../enums/entity.enum';
 import { SearchIndex } from '../../../enums/search.enum';
 import { Glossary } from '../../../generated/entity/data/glossary';
 import { GlossaryTerm } from '../../../generated/entity/data/glossaryTerm';
-import { Metric } from '../../../generated/entity/data/metric';
 import { EntityData } from '../../../pages/TasksPage/TasksPage.interface';
 import {
   getGlossariesList,
@@ -27,7 +26,6 @@ import {
   getGlossaryTermsAssetCounts,
   getGlossaryTermsByIds,
 } from '../../../rest/glossaryAPI';
-import { getMetrics } from '../../../rest/metricsAPI';
 import {
   checkRdfEnabled,
   downloadGlossaryOntology,
@@ -71,7 +69,6 @@ import {
   convertRdfGraphToOntologyGraph,
   getScopedTermNodes,
   isTermNode,
-  mergeMetricsIntoGraph,
   METRIC_NODE_TYPE,
   searchHitSourceToEntityRef,
 } from '../utils/graphBuilders';
@@ -615,22 +612,6 @@ export function useOntologyExplorer({
     [t]
   );
 
-  const fetchAllMetrics = useCallback(async (): Promise<Metric[]> => {
-    const allMetrics: Metric[] = [];
-    let after: string | undefined;
-    let pages = 0;
-    const MAX_SAFE_PAGES = 500;
-
-    do {
-      const response = await getMetrics({ fields: 'tags', limit: 100, after });
-      allMetrics.push(...response.data);
-      after = response.paging?.after;
-      pages += 1;
-    } while (after && pages < MAX_SAFE_PAGES);
-
-    return allMetrics;
-  }, []);
-
   const fetchTermsForGlossary = useCallback(
     async (
       glossary: Glossary,
@@ -850,10 +831,7 @@ export function useOntologyExplorer({
     async (glossaryIdParam?: string, glossaryTermIdParam?: string) => {
       setLoading(true);
       try {
-        const [glossaryResult, metricsResponse] = await Promise.all([
-          fetchAllGlossariesPaginated(),
-          fetchAllMetrics().catch(() => [] as Metric[]),
-        ]);
+        const glossaryResult = await fetchAllGlossariesPaginated();
 
         const allGlossaries = glossaryResult.glossaries;
         setGlossaries(allGlossaries);
@@ -887,12 +865,11 @@ export function useOntologyExplorer({
           data = buildGraphFromAllTermsCb(terms, allGlossaries);
         }
 
-        const mergedData = mergeMetricsIntoGraph(data, metricsResponse, t);
         filterFetchedGlossariesRef.current = new Set();
         setAssetGraphData(null);
         setTermAssetCounts({});
         setFetchError(false);
-        setGraphData(mergedData);
+        setGraphData(data);
         lastLoadCompletedRef.current = Date.now();
       } catch (error) {
         showErrorToast(
@@ -908,7 +885,6 @@ export function useOntologyExplorer({
     [
       rdfEnabled,
       fetchGraphDataFromDatabase,
-      fetchAllMetrics,
       loadNextTermPage,
       buildGraphFromAllTermsCb,
       t,

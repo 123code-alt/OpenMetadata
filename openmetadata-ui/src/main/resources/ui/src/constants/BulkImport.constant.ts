@@ -14,14 +14,8 @@ import { ResourceEntity } from '../context/PermissionProvider/PermissionProvider
 import { EntityType } from '../enums/entity.enum';
 
 export const SUPPORTED_BULK_IMPORT_EDIT_ENTITY = [
-  ResourceEntity.TABLE,
-  ResourceEntity.DATABASE_SERVICE,
-  ResourceEntity.DATABASE,
-  ResourceEntity.DATABASE_SCHEMA,
   ResourceEntity.GLOSSARY_TERM,
   ResourceEntity.GLOSSARY,
-  ResourceEntity.METRIC,
-  ResourceEntity.TEST_CASE,
   ResourceEntity.CLASSIFICATION,
 ];
 

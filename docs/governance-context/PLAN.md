@@ -4,7 +4,7 @@
 
 - 基线：OpenMetadata `2.0.8-release`，提交 `dd013e20428ae77fb837332fb646d9b01301ed81`。
 - 新分支：`codex/governance-context-2.0.8`。
-- 当前阶段：依赖已确认，正在验证原架构构建和隔离；尚未完成业务代码裁剪或部署验证。
+- 当前阶段：已建立原架构运行基线，完成首轮路由／资源注册／MCP 裁剪及页面入口物理删除；验收证据与边界见 VALIDATION.md。
 - 既有 `codex/semantic-context-minimal` 是独立实现的验证版；本分支从原版开始，不复制其替代后端。
 
 ## 已确认的产品范围
@@ -58,14 +58,14 @@ JSON Schema、生成模型和构建链路继续作为契约来源。初期保留
 
 入口为 `openmetadata-mcp/.../McpServer.java`，原协议挂载于 `/mcp/*`；工具分派见 `tools/DefaultToolContext.java`。
 
-| 原工具 | 裁剪时的处理目标，尚待实现及测试 |
+| 原工具 | 本轮处理 |
 | --- | --- |
 | search_metadata / get_entity_details | 保留，限制查询范围到支持实体，验证权限 |
 | get_persona_context / get_user_context / find_context / company_context | 保留对应原实现并核对实际工具定义及引用范围；保留必要 Persona 支撑 |
 | create_entity / describe_entity_type / patch_entity | 验证保留实体、Schema、权限、审计；禁止借通用入口访问移除能力 |
 | semantic_search | 核查 embedding 和 ES/OS 版本要求；未配置时不要宣称可用 |
-| get_entity_lineage / create_lineage | 与本轮范围无直接对应，拟从暴露工具中移除；清理分派而非只隐藏 tools/list |
-| get_test_definitions / create_test_case / root_cause_analysis | 随数据质量模块退出产品范围，拟移除暴露与调用入口 |
+| get_entity_lineage / create_lineage | 与本轮范围无直接对应，已从暴露工具及实现中移除；清理分派而非只隐藏 tools/list |
+| get_test_definitions / create_test_case / root_cause_analysis | 随数据质量模块退出产品范围，已移除暴露、调用入口及实现 |
 
 工具最终名称以原 JSON 定义和服务端实现为准，验收包括 initialize、tools/list、tools/call、身份传递、拒绝越权及会话行为。
 
@@ -88,12 +88,14 @@ JSON Schema、生成模型和构建链路继续作为契约来源。初期保留
 5. **端到端验收**：术语与标签 CRUD/版本/审批、本体图、文章/文档/记忆/归档、权限、MCP、上传与重启持久化；检查原环境未被写入。
 6. **交付**：推送用户 fork 的独立分支，提供 Windows IDEA 显式步骤、SQL、ES/Fuseki/对象存储隔离说明和验证记录；如有未完成项明确列出。
 
-## 当前进展与待确认
+## 当前进展
 
 用户已确认 Fuseki 的 Windows Java 启动方案，以及 S3 兼容存储（已有则复用，否则 MinIO）。
 
 已加入独立 Maven 聚合入口，完成后端与 MCP 编译安装；收拢侧栏导航，移除 5 个无关 MCP 工具的清单及分派，并新增拒绝直接调用的测试。原路由、共享仓储、实体类型和设置仍待裁剪，不能把当前分支视为最终独立产品。
 
-PG 隔离方式已向用户追加确认：同一 PG 实例新建专用数据库，或坚持与标准环境同库而额外适配 schema 行为。实际原版迁移需要 pgcrypto、pg_trgm 扩展，原有维护代码又存在 public 假设；原版部署的隔离验收尚未通过，不能套用此前最小版的验证结论。
+用户已确认允许在同一 PG 实例中新建专用数据库。采用 `governance_context_v208` 数据库、同名专用业务 schema 和专用账号；该新库的 public 仅用于扩展搜索路径兼容，不与标准环境数据库共享业务表。原版 migrate 与 Flowable 初始化已完成，页面及服务健康检查通过；进一步验证进行中。
 
 验证进展见 [VALIDATION.md](VALIDATION.md)。
+
+部署路径见 [WINDOWS-IDEA.md](WINDOWS-IDEA.md)。用户已同意复用同一 PG 实例、另建独立数据库；该库内仍使用专用业务 schema，扩展位于该新库 public。

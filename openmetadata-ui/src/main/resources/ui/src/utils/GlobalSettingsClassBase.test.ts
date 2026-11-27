@@ -86,7 +86,7 @@ describe('GlobalSettingsClassBase', () => {
     it('should filter service items based on permissions', () => {
       (userPermissions.hasViewPermissions as jest.Mock).mockImplementation(
         (entity: ResourceEntity) => {
-          return entity === ResourceEntity.DATABASE_SERVICE;
+          return entity === ResourceEntity.DRIVE_SERVICE;
         }
       );
 
@@ -101,11 +101,14 @@ describe('GlobalSettingsClassBase', () => {
       expect(servicesCategory).toBeDefined();
       expect(servicesCategory?.items).toBeDefined();
 
-      const databaseService = servicesCategory?.items?.find(
-        (item) => item.key === 'services.databases'
+      const driveService = servicesCategory?.items?.find(
+        (item) => item.key === 'services.drives'
       );
 
-      expect(databaseService?.isProtected).toBe(true);
+      expect(driveService?.isProtected).toBe(true);
+      expect(servicesCategory?.items?.map((item) => item.key)).toEqual([
+        'services.drives',
+      ]);
     });
 
     it('should include applications category for admin user', () => {
@@ -401,7 +404,7 @@ describe('GlobalSettingsClassBase', () => {
       expect(ssoCategoryNonAdmin?.isProtected).toBe(false);
     });
 
-    it('should include all service types in services category', () => {
+    it('should retain only Drive setup in services category', () => {
       (userPermissions.hasViewPermissions as jest.Mock).mockReturnValue(true);
 
       const result =
@@ -415,19 +418,7 @@ describe('GlobalSettingsClassBase', () => {
       expect(servicesCategory).toBeDefined();
       expect(servicesCategory?.items).toBeDefined();
 
-      const serviceKeys = [
-        'services.apiServices',
-        'services.databases',
-        'services.messaging',
-        'services.dashboards',
-        'services.pipelines',
-        'services.mlmodels',
-        'services.storages',
-        'services.search',
-        'services.metadata',
-        'services.drives',
-        'services.dataObservability',
-      ];
+      const serviceKeys = ['services.drives'];
 
       serviceKeys.forEach((key) => {
         const serviceItem = servicesCategory?.items?.find(
@@ -438,7 +429,7 @@ describe('GlobalSettingsClassBase', () => {
       });
     });
 
-    it('should mark data observability as always protected', () => {
+    it('should omit data observability from distribution settings', () => {
       (userPermissions.hasViewPermissions as jest.Mock).mockReturnValue(false);
 
       const result =
@@ -452,8 +443,7 @@ describe('GlobalSettingsClassBase', () => {
         (item) => item.key === 'services.dataObservability'
       );
 
-      expect(dataObservability).toBeDefined();
-      expect(dataObservability?.isProtected).toBe(true);
+      expect(dataObservability).toBeUndefined();
     });
 
     it('should include online users in members for admin only', () => {
@@ -491,7 +481,7 @@ describe('GlobalSettingsClassBase', () => {
       expect(onlineUsersNonAdmin?.isProtected).toBe(false);
     });
 
-    it('should include all preference items for admin', () => {
+    it('should retain application preferences without profiling and lineage', () => {
       (userPermissions.hasViewPermissions as jest.Mock).mockReturnValue(false);
 
       const result =
@@ -512,9 +502,7 @@ describe('GlobalSettingsClassBase', () => {
         'preferences.email',
         'preferences.loginConfiguration',
         'preferences.om-health',
-        'preferences.profiler-configuration',
         'preferences.search-settings',
-        'preferences.lineageConfig',
         'preferences.om-url-config',
         'preferences.dataAssetRules',
       ];

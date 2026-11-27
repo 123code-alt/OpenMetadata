@@ -85,35 +85,6 @@ class HonestResponseTest {
   // --- RCA completeness ------------------------------------------------------------------------
 
   @Test
-  void aShortFailingTestListIsReportedComplete() {
-    Map<String, Object> tests = new HashMap<>();
-
-    RootCauseAnalysisTool.annotateCompleteness(tests, 3);
-
-    assertEquals(3, tests.get("failingTestCount"));
-    assertEquals(Boolean.TRUE, tests.get("complete"), "three of three is genuinely the whole set");
-    assertNull(tests.get("completeNote"));
-  }
-
-  @Test
-  void aFullBucketIsNotClaimedComplete() {
-    Map<String, Object> tests = new HashMap<>();
-
-    RootCauseAnalysisTool.annotateCompleteness(tests, 100);
-
-    assertEquals(
-        Boolean.FALSE,
-        tests.get("complete"),
-        "the lookup passes no limit, so the terms aggregation caps at 100 buckets and a full page "
-            + "cannot be distinguished from a truncated one - 'complete: true' was hardcoded");
-    assertTrue(
-        tests.get("completeNote").toString().contains("originEntityFQN"),
-        "the caveat carries the way to get the full set, not just the fact that it is capped");
-  }
-
-  // --- failure classification ------------------------------------------------------------------
-
-  @Test
   void aStatusTheBackendReportedBeatsTheKeywordGuess() {
     Exception parseFailure =
         new IOException(

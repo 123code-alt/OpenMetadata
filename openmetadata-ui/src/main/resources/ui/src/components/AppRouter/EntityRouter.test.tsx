@@ -29,7 +29,7 @@ jest.mock('../../utils/EntityUtilClassBase', () => ({
   __esModule: true,
   default: {
     getEntityDetailComponent: jest.fn().mockImplementation((entityType) => {
-      if (entityType === 'table') {
+      if (entityType === 'file') {
         return () => <>EntityDetails</>;
       }
 
@@ -40,7 +40,7 @@ jest.mock('../../utils/EntityUtilClassBase', () => ({
 
 jest.mock('../../utils/useRequiredParams', () => ({
   useRequiredParams: jest.fn().mockImplementation(() => ({
-    entityType: 'table',
+    entityType: 'file',
   })),
 }));
 
@@ -52,7 +52,7 @@ jest.mock('react-router-dom', () => ({
 describe('EntityRouter', () => {
   it('should render EntityVersionPage component for entity version details route', async () => {
     render(
-      <MemoryRouter initialEntries={['/testTable/versions/123']}>
+      <MemoryRouter initialEntries={['/testFile/versions/123']}>
         <EntityRouter />
       </MemoryRouter>
     );
@@ -62,7 +62,7 @@ describe('EntityRouter', () => {
 
   it('should render EntityVersionPage component for entity version details route with tab', async () => {
     render(
-      <MemoryRouter initialEntries={['/testTable/versions/123/all']}>
+      <MemoryRouter initialEntries={['/testFile/versions/123/all']}>
         <EntityRouter />
       </MemoryRouter>
     );
@@ -72,7 +72,7 @@ describe('EntityRouter', () => {
 
   it('should render EntityDetails component for entity details route', async () => {
     render(
-      <MemoryRouter initialEntries={['/testTable']}>
+      <MemoryRouter initialEntries={['/testFile']}>
         <EntityRouter />
       </MemoryRouter>
     );
@@ -82,7 +82,7 @@ describe('EntityRouter', () => {
 
   it('should render EntityDetails component for entity details route with tab', async () => {
     render(
-      <MemoryRouter initialEntries={['/testTable/schema']}>
+      <MemoryRouter initialEntries={['/testFile/schema']}>
         <EntityRouter />
       </MemoryRouter>
     );
@@ -92,12 +92,23 @@ describe('EntityRouter', () => {
 
   it('should render EntityDetails component for entity details route with tab & subtab', async () => {
     render(
-      <MemoryRouter initialEntries={['/testTable/activity_feed/tasks']}>
+      <MemoryRouter initialEntries={['/testFile/activity_feed/tasks']}>
         <EntityRouter />
       </MemoryRouter>
     );
 
     expect(await screen.findByText('EntityDetails')).toBeInTheDocument();
+  });
+
+  it('should reject a removed table route', () => {
+    (useRequiredParams as jest.Mock).mockReturnValue({ entityType: 'table' });
+    render(
+      <MemoryRouter initialEntries={['/testTable']}>
+        <EntityRouter />
+      </MemoryRouter>
+    );
+
+    expect(screen.getByText('Redirected to /404')).toBeInTheDocument();
   });
 
   it('should render NotFound component for unknown route', () => {

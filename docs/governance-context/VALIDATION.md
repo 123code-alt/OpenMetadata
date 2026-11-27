@@ -1,21 +1,59 @@
-# 构建与裁剪验证进展
+# 构建与联合验证记录
 
-日期：2026-11-27。环境：Linux、JDK 21、Maven 3.9.9、Node 22.23.5、Yarn 1.22.22。
+日期：2026-11-27。环境：Linux、JDK 21、Maven 3.9.9、Node 22.23.5、Yarn 1.22.22。仅操作本任务云端隔离环境，未连接用户 Windows 的 PG / ES。
 
-| 检查 | 当前结果 |
+## 已验证的原架构基线
+
+| 检查 | 结果与范围 |
 | --- | --- |
-| 原 Service / MCP 编译、安装 | 通过，八个后端 reactor 项目成功；使用 maven.test.skip，不代表全部后端测试通过 |
-| 裁剪聚合入口 | `mvn -f governance-context/pom.xml -pl :openmetadata-service,:openmetadata-mcp -am validate` 通过 |
-| MCP 定向测试 | `mvn -pl openmetadata-mcp test -Dtest=DefaultToolContextTest`，40 项全部通过；包含 5 个被移除工具的列表与直接分派拒绝检查 |
-| Java 格式 | MCP 模块 Spotless apply / check 通过 |
-| UI 格式 | 修改的侧栏常量执行 organize-imports、ESLint、Prettier，通过 |
-| 侧栏现有测试 | LeftSidebarClassBase / LeftSidebarUtils 两套测试，33 项全部通过 |
-| 原共享 UI | Vite 静态构建与类型声明生成通过 |
-| 服务配置 | 原 OpenMetadataApplication 的 check 命令通过；管理监听地址可独立配置，默认只绑定本机 |
-| 原 PG 迁移 | 未通过：专用账号不能创建 pgcrypto、pg_trgm 扩展；管理员预置后进一步复现：仅新 schema 的 search_path 无法解析 public 下的 gin_trgm_ops，需要处理 namespace 与隔离 |
-| 完整前端 | 正在执行；需先生成 4.9.2 JavaScript ANTLR 文件，再运行 Vite，不能省略该步骤 |
-| Windows / IDEA | 尚未实机验证；完整部署步骤待隔离基线完成后补齐 |
+| 原后端构建 | common / spec / shaded-deps / service / mcp 构建安装通过，保留 JSON Schema 生成链路 |
+| 分发入口 | governance-context 聚合 reactor validate 通过 |
+| 最终前端静态构建 | 串行构建 exit 0，Vite 打包及后续压缩完成，总进程约 7 分 49 秒 |
+| UI 定向回归 | 6 套测试，100 通过、26 原有跳过；修改文件 organize-imports / ESLint / Prettier 通过 |
+| 全量 TypeScript | `tsc --noEmit` exit 2，共 527 个诊断；本轮修改文件未出现在诊断列表，尚未排查所有诊断来源；此项未通过 |
+| Java 定向测试 | 最终 60 项通过：分发资源／MCP 参数范围 7 项、DefaultToolContextTest 40 项、HonestResponseTest 13 项；两个模块 Spotless 通过；不代表全量集成测试通过 |
+| 原共享 UI | Vite 静态资源和类型声明构建通过 |
+| UI 定向测试 | 侧栏、设置菜单和 EntityRouter 首批 67 项通过；扩展回归结果随最终验收补充 |
+| PG 原版迁移 | 独立数据库 `governance_context_v208`；业务 schema 同名，public 只提供该库内部扩展；原版 migrate 及 Flowable 初始化通过，观察到 202 张业务表落在专用 schema |
+| 搜索后端 | 使用 OpenSearch 3.4.0 和独立 clusterAlias；可见 67 个专用前缀索引和 86 个其他索引；未对其他索引做全量内容校验。用户实际 ES 版本未实测 |
+| 原登录与静态 UI | 原版管理员登录成功，原导航中术语库、本体、标签、文章、记忆页面打开；基线浏览器记录无 pageerror |
+| 术语／标签 | glossary、glossaryTerm、classification、tag 创建和回读；术语 JSON Patch、版本递增、历史版本读取通过 |
+| 文章／记忆 | 原知识页面、记忆 API 创建和回读通过 |
+| 记忆权限 | 新建普通用户，读取他人私有记忆返回 403，列表不包含该记忆 |
+| MCP 协议 | 真实 HTTP initialize、tools/list、get_entity_details 调用成功；已移除工具直接调用失败；未认证请求返回 401 |
+| Fuseki | 原扩展 + Jena 6.2.0 Java 独立进程；新术语 RDF 可直接查询。本体 API 可读取术语图，孤立节点场景使用原版数据库 fallback，未将 fallback 冒充 RDF 图响应 |
+| Fuseki 持久化 | 重启后 RDF 三元组数量保持 3467，与重启前一致 |
+| S3 持久化基线 | 固定 tag 源码构建的独立 MinIO；原文档上传／鉴权下载通过，下载字节一致；MinIO 重启健康检查通过 |
 
-试验 PG 为云端此前验证版使用的实例，专用账号和 schema 为 `governance_context_v208`，迁移停在扩展权限检查；这是临时验证环境，不能替代 Windows 实机验收。没有连接或修改用户的 Windows PG / ES。测试凭据位于仓库外的本机运行目录，不提交。
+配置、账号、令牌和实际文档对象存于 Git 仓库之外，未提交。PG 是现有实例内新增独立库与角色，已有原验证库保留。
 
-当前改动缩小构建与导航范围，移除无关 MCP 工具；通用实体工具的业务实体范围、完整后端代码、路由、设置和资源初始化仍需继续收拢。PG、ES、Fuseki、S3 与端到端功能尚未完成联合验收。
+## 本轮裁剪的实际边界
+
+- 删除无关主路由、限制通用详情／导入入口，首页进入原上下文概览。
+- 设置保留成员、权限、Persona、Bots、Apps、偏好、术语关系和工作流等依赖；服务菜单只保留 Drive。
+- 物理删除 38 个不再被生产入口引用的页面源码、37 个对应测试，以及 5 个无关 MCP 工具实现和对应测试。共享组件、共享实体、Schema、仓储、迁移及部分原版源码继续保留。
+- 后端从资源注册阶段收拢业务 REST API；通用 MCP 创建、修改、详情、Schema 查询与检索额外限制实体类型；批量详情检查真实的 `entityType:fqn` 参数和原版兼容的 CSV 形式；禁用详情内的 lineage／quality 扩展。
+- 默认是 governance-context 分发；full 兼容选项仅用于后端排查，不能恢复已物理删除的页面和工具。
+
+## 限制与后续验收
+
+Windows / IDEA 步骤已按实际类名、配置和构建链路展开，但尚未在 Windows 实机验证；云端 Linux 结果不能替代该项。部署步骤见 [WINDOWS-IDEA.md](WINDOWS-IDEA.md)，可按 [SMOKE-TEST.md](SMOKE-TEST.md) 复测。
+
+本轮关闭 LLM 和向量检索，未验收语义搜索、模型自动提取、远程 Drive 同步、第三方应用或完整的多人审批流程。术语审批相关底座保留，正式使用前需按业务配置审阅人并单独验收。
+
+首次最终静态构建曾因与类型检查、Maven 并行而触发云端 8 GB 内存上限（exit 137），已改为串行构建并成功完成；不将该次失败记为通过。原前端的依赖体量仍较大，本轮没有宣称所有无关依赖均已删除。
+
+## 最终运行包复测
+
+`governance-context-runtime-2.0.8-runtime.zip` 已在云端生成并解压，使用包内启动 JAR 和 lib 执行，未使用源码目录的 backend.classpath。运行包目录／CRC 校验通过，不含 DER / PEM 私钥。
+
+- 原维护入口 migrate 从包内 bootstrap SQL 成功执行，退出码 0。
+- `java -jar ... server conf/openmetadata.yaml` 启动；静态 HTML 200，管理健康检查中的 database、deadlocks、OpenMetadataServerHealthCheck 均 healthy。
+- 重启后原先创建的 6 类实体全部可回读；原 S3 文件下载字节仍一致。
+- 重新执行术语／标签／文章／记忆读写、版本历史、MCP 协议、权限及文档上传下载检查，全部通过。
+- tables、databases、testCases、lineage、metrics、dataProducts、searchIndexes 共 7 类 REST 入口返回 404。
+- 不支持的 MCP 类型、移除工具、混合批量读取、CSV 兼容参数及 lineage／quality 扩展被拒绝；有效 glossaryTerm 检索成功。
+- 记忆和文档均完成软删除、归档回读和恢复。
+- 原版浏览器实际登录并打开术语库、本体、分类、文章、记忆，未捕获 pageerror。验证的是基本导航与上述 API 行为，不代表所有 UI 操作均覆盖。
+
+云端构建后已清理可重新安装的 Node 依赖目录以释放空间；源码、锁文件、构建产物及验证记录保留。再次前端开发时按教程安装依赖。

@@ -18,5 +18,6 @@
     <module>../openmetadata-mcp</module>
     <module>../openmetadata-ui-core-components</module>
     <module>../openmetadata-ui</module>
+    <module>runtime</module>
   </modules>
 </project>

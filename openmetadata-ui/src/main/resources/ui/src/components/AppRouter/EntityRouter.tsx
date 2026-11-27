@@ -28,13 +28,29 @@ const EntityVersionPage = withPageSuspenseFallback(
   )
 );
 
+const SUPPORTED_ENTITY_TYPES = new Set<string>([
+  'bulk',
+  EntityType.FILE,
+  EntityType.DIRECTORY,
+  EntityType.SPREADSHEET,
+  EntityType.WORKSHEET,
+  EntityType.DRIVE_SERVICE,
+]);
+
 const EntityRouter = () => {
   const { entityType } = useRequiredParams<{ entityType: EntityType }>();
 
   const Component = useMemo(
-    () => entityUtilClassBase.getEntityDetailComponent(entityType),
+    () =>
+      SUPPORTED_ENTITY_TYPES.has(entityType)
+        ? entityUtilClassBase.getEntityDetailComponent(entityType)
+        : null,
     [entityType]
   );
+
+  if (!SUPPORTED_ENTITY_TYPES.has(entityType)) {
+    return <Navigate replace to={ROUTES.NOT_FOUND} />;
+  }
 
   return (
     <Routes>

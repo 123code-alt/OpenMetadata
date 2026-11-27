@@ -1,5 +1,7 @@
 # OpenMetadata
 
+> 本分支是基于 2.0.8 的治理／上下文中心裁剪验证版：术语库、本体浏览器、分类标签、上下文中心与 MCP。请先阅读 [部署入口](governance-context/README.md)、[Windows / IDEA 逐步教程](docs/governance-context/WINDOWS-IDEA.md) 和 [验证记录](docs/governance-context/VALIDATION.md)。
+
 ![Commit Activity](https://img.shields.io/github/commit-activity/m/open-metadata/OpenMetadata?style=for-the-badge) [![Release](https://img.shields.io/github/release/open-metadata/OpenMetadata/all.svg?style=for-the-badge)](https://github.com/open-metadata/OpenMetadata/releases)
 
 ## The Open Context Layer for AI

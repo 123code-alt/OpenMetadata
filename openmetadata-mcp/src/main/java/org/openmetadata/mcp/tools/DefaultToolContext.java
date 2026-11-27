@@ -16,6 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.openmetadata.mcp.util.McpResponseTrim;
 import org.openmetadata.schema.entity.app.mcp.McpToolCallUsage;
 import org.openmetadata.schema.utils.JsonUtils;
+import org.openmetadata.service.distribution.GovernanceContextProfile;
 import org.openmetadata.service.limits.Limits;
 import org.openmetadata.service.security.AuthorizationException;
 import org.openmetadata.service.security.Authorizer;
@@ -74,6 +75,7 @@ public class DefaultToolContext {
     Map<String, Object> params = request.arguments();
     Object result;
     try {
+      params = GovernanceContextProfile.scopeToolArguments(toolName, params);
       McpTool tool;
       switch (toolName) {
         case "search_metadata":

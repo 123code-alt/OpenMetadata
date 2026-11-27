@@ -16,7 +16,6 @@ import { ReactComponent as ClassificationIcon } from '../assets/svg/classificati
 import { ReactComponent as MemoriesIcon } from '../assets/svg/common/memories.svg';
 import { ReactComponent as KnowledgeCenterIcon } from '../assets/svg/context-center.svg';
 import { ReactComponent as GlossaryIcon } from '../assets/svg/glossary.svg';
-import { ReactComponent as HomeIcon } from '../assets/svg/ic-home.svg';
 import { ReactComponent as LineageIcon } from '../assets/svg/ic-lineage.svg';
 import { ReactComponent as SettingsIcon } from '../assets/svg/ic-settings-v1.svg';
 import { ReactComponent as LogoutIcon } from '../assets/svg/logout.svg';
@@ -48,13 +47,6 @@ export const SIDEBAR_ENTITY_PATH_ALIASES: Record<string, string> = {
 };
 
 export const SIDEBAR_LIST: Array<LeftSidebarItem> = [
-  {
-    key: ROUTES.MY_DATA,
-    title: 'label.home',
-    redirect_url: ROUTES.MY_DATA,
-    icon: HomeIcon,
-    dataTestId: `app-bar-item-${SidebarItem.HOME}`,
-  },
   {
     key: 'governance',
     title: 'label.govern',

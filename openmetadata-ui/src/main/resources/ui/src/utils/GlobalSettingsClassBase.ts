@@ -159,7 +159,7 @@ class GlobalSettingsClassBase {
     permissions: UIPermission,
     isAdminUser?: boolean
   ): Array<SettingMenuItem> {
-    return [
+    const menu: Array<SettingMenuItem> = [
       {
         category: t('label.service-plural'),
         key: GlobalSettingsMenuCategory.SERVICES,
@@ -959,6 +959,59 @@ class GlobalSettingsClassBase {
         ],
       },
     ];
+    const contentOptions = new Set<string>([
+      GlobalSettingOptions.GLOSSARY_TERM,
+      GlobalSettingOptions.TAGS,
+      GlobalSettingOptions.FILES,
+      GlobalSettingOptions.DIRECTORIES,
+      GlobalSettingOptions.DRIVES,
+    ]);
+
+    return menu.map((category) => {
+      if (category.key === GlobalSettingsMenuCategory.SERVICES) {
+        return {
+          ...category,
+          items: category.items?.filter(
+            (item) =>
+              item.key ===
+              `${GlobalSettingsMenuCategory.SERVICES}.${GlobalSettingOptions.DRIVES}`
+          ),
+        };
+      }
+      if (category.key === GlobalSettingsMenuCategory.CUSTOM_PROPERTIES) {
+        return {
+          ...category,
+          items: category.items?.filter((item) =>
+            contentOptions.has(item.key.split('.').at(-1) ?? '')
+          ),
+        };
+      }
+      if (category.key === GlobalSettingsMenuCategory.PREFERENCES) {
+        return {
+          ...category,
+          items: category.items
+            ?.filter(
+              (item) =>
+                !item.key.endsWith(
+                  `.${GlobalSettingOptions.PROFILER_CONFIGURATION}`
+                ) &&
+                !item.key.endsWith(`.${GlobalSettingOptions.LINEAGE_CONFIG}`)
+            )
+            .map((item) =>
+              item.key.endsWith(`.${GlobalSettingOptions.SEARCH_SETTINGS}`)
+                ? {
+                    ...item,
+                    items: item.items?.filter((child) =>
+                      contentOptions.has(child.key.split('.').at(-1) ?? '')
+                    ),
+                  }
+                : item
+            ),
+        };
+      }
+
+      return category;
+    });
   }
 }
 

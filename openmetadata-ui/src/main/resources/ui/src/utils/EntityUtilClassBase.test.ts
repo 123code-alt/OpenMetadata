@@ -69,36 +69,15 @@ jest.mock('./DatabaseSchemaDetailsUtils', () => ({
 jest.mock('./DatabaseServiceUtils', () => ({
   ExtraDatabaseServiceDropdownOptions: jest.fn(),
 }));
-jest.mock('../pages/APICollectionPage/APICollectionPage', () => jest.fn());
-jest.mock('../pages/APIEndpointPage/APIEndpointPage', () => jest.fn());
-jest.mock('../pages/ContainerPage/ContainerPage', () => jest.fn());
+
 jest.mock('../pages/DashboardDetailsPage/DashboardDetailsPage.component', () =>
   jest.fn()
 );
-jest.mock('../pages/DatabaseDetailsPage/DatabaseDetailsPage', () => jest.fn());
-jest.mock('../pages/DatabaseSchemaPage/DatabaseSchemaPage.component', () =>
-  jest.fn()
-);
-jest.mock('../pages/ChartDetailsPage/ChartDetailsPage.component', () =>
-  jest.fn()
-);
-jest.mock('../pages/DataModelPage/DataModelPage.component', () => jest.fn());
+
 jest.mock('../pages/EntityVersionPage/EntityVersionPage.component', () => ({
   VersionData: jest.fn(),
 }));
-jest.mock('../pages/MetricsPage/MetricDetailsPage/MetricDetailsPage', () =>
-  jest.fn()
-);
-jest.mock('../pages/MlModelPage/MlModelPage.component', () => jest.fn());
-jest.mock('../pages/PipelineDetails/PipelineDetailsPage.component', () =>
-  jest.fn()
-);
-jest.mock('../pages/SearchIndexDetailsPage/SearchIndexDetailsPage', () =>
-  jest.fn()
-);
-jest.mock('../pages/StoredProcedure/StoredProcedurePage', () => jest.fn());
-jest.mock('../pages/TableDetailsPageV1/TableDetailsPageV1', () => jest.fn());
-jest.mock('../pages/TopicDetails/TopicDetailsPage.component', () => jest.fn());
+
 jest.mock('../pages/DirectoryDetailsPage/DirectoryDetailsPage', () =>
   jest.fn()
 );

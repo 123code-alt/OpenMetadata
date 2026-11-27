@@ -16,59 +16,8 @@ import Loader from '../components/common/Loader/Loader';
 import { EntityType } from '../enums/entity.enum';
 
 const lazyComponentMap: Partial<
-  Record<EntityType, LazyExoticComponent<ComponentType<any>>>
+  Record<EntityType, LazyExoticComponent<ComponentType>>
 > = {
-  [EntityType.DATABASE]: lazy(
-    () => import('../pages/DatabaseDetailsPage/DatabaseDetailsPage')
-  ),
-  [EntityType.DATABASE_SCHEMA]: lazy(
-    () => import('../pages/DatabaseSchemaPage/DatabaseSchemaPage.component')
-  ),
-  [EntityType.PIPELINE]: lazy(
-    () => import('../pages/PipelineDetails/PipelineDetailsPage.component')
-  ),
-  [EntityType.TOPIC]: lazy(
-    () => import('../pages/TopicDetails/TopicDetailsPage.component')
-  ),
-  [EntityType.DASHBOARD]: lazy(
-    () => import('../pages/DashboardDetailsPage/DashboardDetailsPage.component')
-  ),
-  [EntityType.CHART]: lazy(
-    () => import('../pages/ChartDetailsPage/ChartDetailsPage.component')
-  ),
-  [EntityType.STORED_PROCEDURE]: lazy(
-    () => import('../pages/StoredProcedure/StoredProcedurePage')
-  ),
-  [EntityType.DASHBOARD_DATA_MODEL]: lazy(
-    () => import('../pages/DataModelPage/DataModelPage.component')
-  ),
-  [EntityType.MLMODEL]: lazy(
-    () => import('../pages/MlModelPage/MlModelPage.component')
-  ),
-  [EntityType.CONTAINER]: lazy(
-    () => import('../pages/ContainerPage/ContainerPage')
-  ),
-  [EntityType.SEARCH_INDEX]: lazy(
-    () => import('../pages/SearchIndexDetailsPage/SearchIndexDetailsPage')
-  ),
-  [EntityType.DATA_PRODUCT]: lazy(
-    () =>
-      import(
-        '../components/DataProducts/DataProductsPage/DataProductsPage.component'
-      )
-  ),
-  [EntityType.TABLE]: lazy(
-    () => import('../pages/TableDetailsPageV1/TableDetailsPageV1')
-  ),
-  [EntityType.API_COLLECTION]: lazy(
-    () => import('../pages/APICollectionPage/APICollectionPage')
-  ),
-  [EntityType.API_ENDPOINT]: lazy(
-    () => import('../pages/APIEndpointPage/APIEndpointPage')
-  ),
-  [EntityType.METRIC]: lazy(
-    () => import('../pages/MetricsPage/MetricDetailsPage/MetricDetailsPage')
-  ),
   [EntityType.DIRECTORY]: lazy(
     () => import('../pages/DirectoryDetailsPage/DirectoryDetailsPage')
   ),
@@ -81,9 +30,6 @@ const lazyComponentMap: Partial<
   [EntityType.WORKSHEET]: lazy(
     () => import('../pages/WorksheetDetailsPage/WorksheetDetailsPage')
   ),
-  [EntityType.DATA_CONTRACT]: lazy(
-    () => import('../pages/DataContractRedirectPage/DataContractRedirectPage')
-  ),
 };
 
 export function getEntityDetailComponent(entityType: string): FC | null {
@@ -93,7 +39,7 @@ export function getEntityDetailComponent(entityType: string): FC | null {
     return null;
   }
 
-  const WrappedComponent: FC<any> = (props) => (
+  const WrappedComponent: FC = (props) => (
     <Suspense fallback={<Loader fullScreen />}>
       <LazyComponent {...props} />
     </Suspense>

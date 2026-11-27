@@ -64,13 +64,6 @@ const BotsPageV1 = withPageSuspenseFallback(
   React.lazy(() => import('../../pages/BotsPageV1/BotsPageV1.component'))
 );
 
-const ColumnBulkOperations = withPageSuspenseFallback(
-  React.lazy(
-    () =>
-      import('../../pages/ColumnBulkOperations/ColumnBulkOperations.component')
-  )
-);
-
 const DataAssetRulesPage = withPageSuspenseFallback(
   React.lazy(
     () => import('../../pages/Configuration/DataAssetRules/DataAssetRulesPage')
@@ -163,10 +156,6 @@ const LearningResourcesPage = withPageSuspenseFallback(
   )
 );
 
-const LineageConfigPage = withPageSuspenseFallback(
-  React.lazy(() => import('../../pages/LineageConfigPage/LineageConfigPage'))
-);
-
 const NotificationListPage = withPageSuspenseFallback(
   React.lazy(
     () => import('../../pages/NotificationListPage/NotificationListPage')
@@ -225,13 +214,6 @@ const PoliciesDetailPage = withPageSuspenseFallback(
 const PoliciesListPage = withPageSuspenseFallback(
   React.lazy(
     () => import('../../pages/PoliciesPage/PoliciesListPage/PoliciesListPage')
-  )
-);
-
-const ProfilerConfigurationPage = withPageSuspenseFallback(
-  React.lazy(
-    () =>
-      import('../../pages/ProfilerConfigurationPage/ProfilerConfigurationPage')
   )
 );
 
@@ -711,18 +693,6 @@ const SettingsRouter = () => {
       <Route
         element={
           <AdminProtectedRoute>
-            <LineageConfigPage pageTitle={t('label.lineage-config')} />
-          </AdminProtectedRoute>
-        }
-        path={getSettingPathRelative(
-          GlobalSettingsMenuCategory.PREFERENCES,
-          GlobalSettingOptions.LINEAGE_CONFIG
-        )}
-      />
-
-      <Route
-        element={
-          <AdminProtectedRoute>
             <UrlConfigurationPage />
           </AdminProtectedRoute>
         }
@@ -846,17 +816,7 @@ const SettingsRouter = () => {
           GlobalSettingOptions.APPEARANCE
         )}
       />
-      <Route
-        element={
-          <AdminProtectedRoute hasPermission={false}>
-            <ProfilerConfigurationPage />
-          </AdminProtectedRoute>
-        }
-        path={getSettingPathRelative(
-          GlobalSettingsMenuCategory.PREFERENCES,
-          GlobalSettingOptions.PROFILER_CONFIGURATION
-        )}
-      />
+
       <Route
         element={
           <AdminProtectedRoute hasPermission={false}>
@@ -901,14 +861,7 @@ const SettingsRouter = () => {
           GlobalSettingsMenuCategory.CUSTOM_PROPERTIES
         )}
       />
-      <Route
-        element={
-          <AdminProtectedRoute hasPermission={false}>
-            <ColumnBulkOperations />
-          </AdminProtectedRoute>
-        }
-        path={ROUTES.COLUMN_BULK_OPERATIONS.replace(ROUTES.SETTINGS, '')}
-      />
+
       <Route
         element={
           <AdminProtectedRoute hasPermission={false}>

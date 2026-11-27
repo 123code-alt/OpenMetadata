@@ -209,3 +209,6 @@ ingestion/.claude/agents
 test-results/
 
 docs/superpowers/*
+
+# Local keys for the governance-context distribution
+/conf/local-keys/

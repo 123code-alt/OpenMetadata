@@ -21,18 +21,13 @@ import {
 import { usePermissionProvider } from '../../context/PermissionProvider/PermissionProvider';
 import { ResourceEntity } from '../../context/PermissionProvider/PermissionProvider.interface';
 import { Operation } from '../../generated/entity/policies/policy';
-import { checkPermission, userPermissions } from '../../utils/PermissionsUtils';
+import { checkPermission } from '../../utils/PermissionsUtils';
 import { useApplicationsProvider } from '../Settings/Applications/ApplicationsProvider/ApplicationsProvider';
 import { RoutePosition } from '../Settings/Applications/plugins/AppPlugin';
 import AdminProtectedRoute from './AdminProtectedRoute';
 import { withPageSuspenseFallback } from './withSuspenseFallback';
 
 // Previously statically imported — lazify so they stay out of the main chunk
-const AddCustomMetricPage = withPageSuspenseFallback(
-  React.lazy(
-    () => import('../../pages/AddCustomMetricPage/AddCustomMetricPage')
-  )
-);
 
 const CustomizablePage = withPageSuspenseFallback(
   React.lazy(() =>
@@ -42,28 +37,12 @@ const CustomizablePage = withPageSuspenseFallback(
   )
 );
 
-const DataQualityPage = withPageSuspenseFallback(
-  React.lazy(() => import('../../pages/DataQuality/DataQualityPage'))
-);
-
 const ForbiddenPage = withPageSuspenseFallback(
   React.lazy(() => import('../../pages/ForbiddenPage/ForbiddenPage'))
 );
 
-const PlatformLineage = withPageSuspenseFallback(
-  React.lazy(() => import('../../pages/PlatformLineage/PlatformLineage'))
-);
-
 const TagPage = withPageSuspenseFallback(
   React.lazy(() => import('../../pages/TagPage/TagPage'))
-);
-
-const DomainRouter = withPageSuspenseFallback(
-  React.lazy(() => import('./DomainRouter'))
-);
-
-const DataProductListPage = withPageSuspenseFallback(
-  React.lazy(() => import('../DataProduct/DataProductListPage'))
 );
 
 const SettingsRouter = withPageSuspenseFallback(
@@ -86,23 +65,6 @@ const GlossaryTermRouter = withPageSuspenseFallback(
   React.lazy(() => import('./GlossaryTermRouter/GlossaryTermRouter'))
 );
 
-const MyDataPage = withPageSuspenseFallback(
-  React.lazy(() => import('../../pages/MyDataPage/MyDataPage.component'))
-);
-
-const TestSuiteIngestionPage = withPageSuspenseFallback(
-  React.lazy(
-    () => import('../../pages/TestSuiteIngestionPage/TestSuiteIngestionPage')
-  )
-);
-
-const TestSuiteDetailsPage = withPageSuspenseFallback(
-  React.lazy(
-    () =>
-      import('../../pages/TestSuiteDetailsPage/TestSuiteDetailsPage.component')
-  )
-);
-
 const AddCustomProperty = withPageSuspenseFallback(
   React.lazy(
     () =>
@@ -112,13 +74,6 @@ const AddCustomProperty = withPageSuspenseFallback(
 
 const MarketPlacePage = withPageSuspenseFallback(
   React.lazy(() => import('../../pages/MarketPlacePage/MarketPlacePage'))
-);
-
-const DataMarketplacePage = withPageSuspenseFallback(
-  React.lazy(
-    () =>
-      import('../../pages/DataMarketplacePage/DataMarketplacePage.component')
-  )
 );
 
 const BotDetailsPage = withPageSuspenseFallback(
@@ -133,25 +88,8 @@ const SwaggerPage = withPageSuspenseFallback(
   React.lazy(() => import('../../pages/SwaggerPage'))
 );
 
-const TourPageComponent = withPageSuspenseFallback(
-  React.lazy(() => import('../../pages/TourPage/TourPage.component'))
-);
-
 const UserPage = withPageSuspenseFallback(
   React.lazy(() => import('../../pages/UserPage/UserPage.component'))
-);
-
-const DomainVersionPage = withPageSuspenseFallback(
-  React.lazy(
-    () =>
-      import('../../components/Domain/DomainVersion/DomainVersion.component')
-  )
-);
-
-const AddIngestionPage = withPageSuspenseFallback(
-  React.lazy(
-    () => import('../../pages/AddIngestionPage/AddIngestionPage.component')
-  )
 );
 
 const AddServicePage = withPageSuspenseFallback(
@@ -188,18 +126,8 @@ const CreateUserPage = withPageSuspenseFallback(
   )
 );
 
-const EditIngestionPage = withPageSuspenseFallback(
-  React.lazy(
-    () => import('../../pages/EditIngestionPage/EditIngestionPage.component')
-  )
-);
-
 const ServiceVersionPage = withPageSuspenseFallback(
   React.lazy(() => import('../../pages/ServiceVersionPage/ServiceVersionPage'))
-);
-
-const ExplorePageV1 = withPageSuspenseFallback(
-  React.lazy(() => import('../../pages/ExplorePage/ExplorePageV1.component'))
 );
 
 const OntologyExplorerPage = withPageSuspenseFallback(
@@ -249,87 +177,19 @@ const UpdateTagsPage = withPageSuspenseFallback(
   React.lazy(() => import('../../pages/TasksPage/UpdateTagPage/UpdateTagPage'))
 );
 
-const DataInsightPage = withPageSuspenseFallback(
-  React.lazy(
-    () => import('../../pages/DataInsightPage/DataInsightPage.component')
-  )
-);
-
-const AddKPIPage = withPageSuspenseFallback(
-  React.lazy(() => import('../../pages/KPIPage/AddKPIPage'))
-);
-
-const EditKPIPage = withPageSuspenseFallback(
-  React.lazy(() => import('../../pages/KPIPage/EditKPIPage'))
-);
-
-const QueryPage = withPageSuspenseFallback(
-  React.lazy(() => import('../../pages/QueryPage/QueryPage.component'))
-);
-
-const AddQueryPage = withPageSuspenseFallback(
-  React.lazy(() => import('../../pages/AddQueryPage/AddQueryPage.component'))
-);
-
-const IncidentManagerPage = withPageSuspenseFallback(
-  React.lazy(() => import('../../pages/IncidentManager/IncidentManagerPage'))
-);
-
-const TestLibraryPage = withPageSuspenseFallback(
-  React.lazy(() => import('../../pages/TestLibrary/TestLibraryPage'))
-);
-
-const IncidentManagerDetailPage = withPageSuspenseFallback(
-  React.lazy(
-    () =>
-      import(
-        '../../pages/IncidentManager/IncidentManagerDetailPage/IncidentManagerDetailPage'
-      )
-  )
-);
-
-const TestCaseVersionPage = withPageSuspenseFallback(
-  React.lazy(
-    () => import('../../pages/TestCaseVersionPage/TestCaseVersionPage')
-  )
-);
-
-const ObservabilityAlertsPage = withPageSuspenseFallback(
-  React.lazy(
-    () => import('../../pages/ObservabilityAlertsPage/ObservabilityAlertsPage')
-  )
-);
-
-const AlertDetailsPage = withPageSuspenseFallback(
-  React.lazy(() => import('../../pages/AlertDetailsPage/AlertDetailsPage'))
-);
-
-const AddObservabilityPage = withPageSuspenseFallback(
-  React.lazy(
-    () => import('../../pages/AddObservabilityPage/AddObservabilityPage')
-  )
-);
-
 const ContextCenterRouter = withPageSuspenseFallback(
   React.lazy(() => import('./ContextCenterRouter/ContextCenterRouter'))
 );
 
-const MetricListPage = withPageSuspenseFallback(
+const AddIngestionPage = withPageSuspenseFallback(
   React.lazy(
-    () => import('../../pages/MetricsPage/MetricListPage/MetricListPage')
+    () => import('../../pages/AddIngestionPage/AddIngestionPage.component')
   )
 );
 
-const AddMetricPage = withPageSuspenseFallback(
+const EditIngestionPage = withPageSuspenseFallback(
   React.lazy(
-    () => import('../../pages/MetricsPage/AddMetricPage/AddMetricPage')
-  )
-);
-
-const ColumnBulkOperationsPage = withPageSuspenseFallback(
-  React.lazy(
-    () =>
-      import('../../pages/ColumnBulkOperations/ColumnBulkOperations.component')
+    () => import('../../pages/EditIngestionPage/EditIngestionPage.component')
   )
 );
 
@@ -364,21 +224,11 @@ const AuthenticatedAppRouter: FunctionComponent = () => {
         element={<ForbiddenPage pageTitle={t('label.no-access')} />}
         path={ROUTES.FORBIDDEN}
       />
-      <Route element={<MyDataPage />} path={ROUTES.MY_DATA} />
-      <Route element={<TourPageComponent />} path={ROUTES.TOUR} />
       <Route
-        element={<ExplorePageV1 pageTitle={t('label.explore')} />}
-        path={ROUTES.EXPLORE}
+        element={<Navigate replace to={ROUTES.CONTEXT_CENTER_OVERVIEW} />}
+        path={ROUTES.MY_DATA}
       />
-      <Route element={<PlatformLineage />} path={ROUTES.PLATFORM_LINEAGE} />
-      <Route
-        element={<PlatformLineage />}
-        path={ROUTES.PLATFORM_LINEAGE_WITH_FQN}
-      />
-      <Route
-        element={<ExplorePageV1 pageTitle={t('label.explore')} />}
-        path={ROUTES.EXPLORE_WITH_TAB}
-      />
+
       <Route
         element={<OntologyExplorerPage />}
         path={ROUTES.ONTOLOGY_EXPLORER}
@@ -419,51 +269,7 @@ const AuthenticatedAppRouter: FunctionComponent = () => {
         }
         path={ROUTES.ADD_SERVICE}
       />
-      <Route element={<QueryPage />} path={ROUTES.QUERY_FULL_SCREEN_VIEW} />
-      <Route
-        element={
-          <AddQueryPage
-            pageTitle={t('label.add-entity', {
-              entity: t('label.query'),
-            })}
-          />
-        }
-        path={ROUTES.ADD_QUERY}
-      />
-      <Route
-        element={
-          <AdminProtectedRoute
-            hasPermission={checkPermission(
-              Operation.Create,
-              ResourceEntity.INGESTION_PIPELINE,
-              permissions
-            )}>
-            <AddIngestionPage
-              pageTitle={t('label.add-entity', {
-                entity: t('label.ingestion'),
-              })}
-            />
-          </AdminProtectedRoute>
-        }
-        path={ROUTES.ADD_INGESTION}
-      />
-      <Route
-        element={
-          <AdminProtectedRoute
-            hasPermission={checkPermission(
-              Operation.EditAll,
-              ResourceEntity.INGESTION_PIPELINE,
-              permissions
-            )}>
-            <EditIngestionPage
-              pageTitle={t('label.edit-entity', {
-                entity: t('label.ingestion'),
-              })}
-            />
-          </AdminProtectedRoute>
-        }
-        path={ROUTES.EDIT_INGESTION}
-      />
+
       <Route element={<ServiceVersionPage />} path={ROUTES.SERVICE_VERSION} />
       <Route element={<ServicePage />} path={ROUTES.SERVICE_WITH_SUB_TAB} />
       <Route element={<ServicePage />} path={ROUTES.SERVICE_WITH_TAB} />
@@ -492,30 +298,13 @@ const AuthenticatedAppRouter: FunctionComponent = () => {
         }
         path={ROUTES.MARKETPLACE_APP_INSTALL}
       />
-      <Route element={<DataMarketplacePage />} path={ROUTES.DATA_MARKETPLACE} />
+
       <Route element={<SwaggerPage />} path={ROUTES.SWAGGER} />
-      <Route element={<DomainVersionPage />} path={ROUTES.DOMAIN_VERSION} />
+
       <Route element={<UserPage />} path={ROUTES.USER_PROFILE_WITH_SUB_TAB} />
       <Route element={<UserPage />} path={ROUTES.USER_PROFILE_WITH_TAB} />
       <Route element={<UserPage />} path={ROUTES.USER_PROFILE} />
 
-      <Route
-        element={
-          <AdminProtectedRoute
-            hasPermission={checkPermission(
-              Operation.EditDataProfile,
-              ResourceEntity.TABLE,
-              permissions
-            )}>
-            <AddCustomMetricPage
-              pageTitle={t('label.add-entity', {
-                entity: t('label.custom-metric'),
-              })}
-            />
-          </AdminProtectedRoute>
-        }
-        path={ROUTES.ADD_CUSTOM_METRIC}
-      />
       <Route
         element={
           <AdminProtectedRoute
@@ -570,216 +359,16 @@ const AuthenticatedAppRouter: FunctionComponent = () => {
         }
         path={ROUTES.UPDATE_TAGS}
       />
-      <Route
-        element={<TestSuiteDetailsPage />}
-        path={ROUTES.TEST_SUITES_WITH_FQN}
-      />
-      <Route
-        element={
-          <TestSuiteIngestionPage
-            pageTitle={t('label.add-entity', {
-              entity: t('label.test-suite'),
-            })}
-          />
-        }
-        path={ROUTES.TEST_SUITES_ADD_INGESTION}
-      />
-      <Route
-        element={
-          <TestSuiteIngestionPage
-            pageTitle={t('label.edit-entity', {
-              entity: t('label.ingestion'),
-            })}
-          />
-        }
-        path={ROUTES.TEST_SUITES_EDIT_INGESTION}
-      />
-      <Route
-        element={
-          <AdminProtectedRoute
-            hasPermission={userPermissions.hasViewPermissions(
-              ResourceEntity.TEST_SUITE,
-              permissions
-            )}>
-            <DataQualityPage pageTitle={t('label.data-quality')} />
-          </AdminProtectedRoute>
-        }
-        path={ROUTES.DATA_QUALITY_WITH_SUB_TAB}
-      />
-      <Route
-        element={
-          <AdminProtectedRoute
-            hasPermission={userPermissions.hasViewPermissions(
-              ResourceEntity.TEST_SUITE,
-              permissions
-            )}>
-            <DataQualityPage pageTitle={t('label.data-quality')} />
-          </AdminProtectedRoute>
-        }
-        path={ROUTES.DATA_QUALITY_WITH_TAB}
-      />
-      <Route
-        element={
-          <AdminProtectedRoute
-            hasPermission={userPermissions.hasViewPermissions(
-              ResourceEntity.TEST_SUITE,
-              permissions
-            )}>
-            <DataQualityPage pageTitle={t('label.data-quality')} />
-          </AdminProtectedRoute>
-        }
-        path={ROUTES.DATA_QUALITY}
-      />
-      <Route
-        element={
-          <AdminProtectedRoute
-            hasPermission={userPermissions.hasViewPermissions(
-              ResourceEntity.TEST_CASE,
-              permissions
-            )}>
-            <IncidentManagerPage />
-          </AdminProtectedRoute>
-        }
-        path={ROUTES.INCIDENT_MANAGER}
-      />
-      <Route
-        element={
-          <AdminProtectedRoute
-            hasPermission={userPermissions.hasViewPermissions(
-              ResourceEntity.TEST_DEFINITION,
-              permissions
-            )}>
-            <TestLibraryPage />
-          </AdminProtectedRoute>
-        }
-        path={ROUTES.TEST_LIBRARY}
-      />
-
-      {[
-        ROUTES.TEST_CASE_DETAILS,
-        ROUTES.TEST_CASE_DETAILS_WITH_TAB,
-        ROUTES.TEST_CASE_DIMENSIONS,
-        ROUTES.TEST_CASE_DIMENSIONS_WITH_TAB,
-      ].map((route) => (
-        <Route
-          element={
-            <AdminProtectedRoute
-              hasPermission={userPermissions.hasViewPermissions(
-                ResourceEntity.TEST_CASE,
-                permissions
-              )}>
-              <IncidentManagerDetailPage />
-            </AdminProtectedRoute>
-          }
-          key={route}
-          path={route}
-        />
-      ))}
-
-      <Route
-        element={
-          <AdminProtectedRoute
-            hasPermission={userPermissions.hasViewPermissions(
-              ResourceEntity.TEST_CASE,
-              permissions
-            )}>
-            <TestCaseVersionPage />
-          </AdminProtectedRoute>
-        }
-        path={ROUTES.TEST_CASE_VERSION}
-      />
-
-      <Route
-        element={
-          <AdminProtectedRoute
-            hasPermission={userPermissions.hasViewPermissions(
-              ResourceEntity.TEST_CASE,
-              permissions
-            )}>
-            <TestCaseVersionPage />
-          </AdminProtectedRoute>
-        }
-        path={ROUTES.TEST_CASE_DETAILS_WITH_TAB_VERSION}
-      />
-      <Route
-        element={
-          <AdminProtectedRoute
-            hasPermission={userPermissions.hasViewPermissions(
-              ResourceEntity.EVENT_SUBSCRIPTION,
-              permissions
-            )}>
-            <ObservabilityAlertsPage />
-          </AdminProtectedRoute>
-        }
-        path={ROUTES.OBSERVABILITY_ALERTS}
-      />
-      <Route
-        element={
-          <AdminProtectedRoute
-            hasPermission={userPermissions.hasViewPermissions(
-              ResourceEntity.EVENT_SUBSCRIPTION,
-              permissions
-            )}>
-            <AlertDetailsPage isNotificationAlert={false} />
-          </AdminProtectedRoute>
-        }
-        path={ROUTES.OBSERVABILITY_ALERT_DETAILS_WITH_TAB}
-      />
-      <Route
-        element={
-          <AddObservabilityPage
-            pageTitle={t('label.add-entity', {
-              entity: t('label.observability'),
-            })}
-          />
-        }
-        path={ROUTES.ADD_OBSERVABILITY_ALERTS}
-      />
-      <Route
-        element={
-          <AddObservabilityPage
-            pageTitle={t('label.edit-entity', {
-              entity: t('label.observability-alert'),
-            })}
-          />
-        }
-        path={ROUTES.EDIT_OBSERVABILITY_ALERTS}
-      />
-      <Route
-        element={<DataInsightPage pageTitle={t('label.data-insight')} />}
-        path={ROUTES.DATA_INSIGHT_WITH_TAB}
-      />
-      <Route
-        element={<DataInsightPage pageTitle={t('label.data-insight')} />}
-        path={ROUTES.DATA_INSIGHT}
-      />
-      <Route
-        element={
-          <AddKPIPage
-            pageTitle={t('label.add-new-entity', {
-              entity: t('label.kpi-uppercase'),
-            })}
-          />
-        }
-        path={ROUTES.ADD_KPI}
-      />
-      <Route
-        element={
-          <EditKPIPage
-            pageTitle={t('label.edit-entity', {
-              entity: t('label.kpi-uppercase'),
-            })}
-          />
-        }
-        path={ROUTES.EDIT_KPI}
-      />
 
       {/* Plugin routes */}
       {pluginRoutes?.map((route) => {
         return <Route key={route.path ?? route.id} {...route} />;
       })}
 
-      <Route element={<MyDataPage />} path={ROUTES.HOME} />
+      <Route
+        element={<Navigate replace to={ROUTES.CONTEXT_CENTER_OVERVIEW} />}
+        path={ROUTES.HOME}
+      />
       <Route
         element={
           <AdminProtectedRoute>
@@ -795,26 +384,6 @@ const AuthenticatedAppRouter: FunctionComponent = () => {
       <Route element={<GlossaryRouter />} path="/glossary/*" />
       <Route element={<GlossaryTermRouter />} path="/glossary-term/*" />
       <Route element={<SettingsRouter />} path="/settings/*" />
-      <Route element={<DomainRouter />} path="/domain/*" />
-      <Route
-        element={<DataProductListPage pageTitle={t('label.data-product')} />}
-        path={ROUTES.DATA_PRODUCT}
-      />
-      <Route element={<MetricListPage />} path={ROUTES.METRICS} />
-      <Route
-        element={
-          <AddMetricPage
-            pageTitle={t('label.add-new-entity', {
-              entity: t('label.metric'),
-            })}
-          />
-        }
-        path={ROUTES.ADD_METRIC}
-      />
-      <Route
-        element={<ColumnBulkOperationsPage />}
-        path={ROUTES.COLUMN_BULK_OPERATIONS}
-      />
 
       <Route
         element={<EntityRouter />}
@@ -831,6 +400,40 @@ const AuthenticatedAppRouter: FunctionComponent = () => {
         path={`${ROUTES.CONTEXT_CENTER}/*`}
       />
       <Route element={<Navigate to={ROUTES.NOT_FOUND} />} path="*" />
+      <Route
+        element={
+          <AdminProtectedRoute
+            hasPermission={checkPermission(
+              Operation.Create,
+              ResourceEntity.INGESTION_PIPELINE,
+              permissions
+            )}>
+            <AddIngestionPage
+              pageTitle={t('label.add-entity', {
+                entity: t('label.ingestion'),
+              })}
+            />
+          </AdminProtectedRoute>
+        }
+        path={ROUTES.ADD_INGESTION}
+      />
+      <Route
+        element={
+          <AdminProtectedRoute
+            hasPermission={checkPermission(
+              Operation.EditAll,
+              ResourceEntity.INGESTION_PIPELINE,
+              permissions
+            )}>
+            <EditIngestionPage
+              pageTitle={t('label.edit-entity', {
+                entity: t('label.ingestion'),
+              })}
+            />
+          </AdminProtectedRoute>
+        }
+        path={ROUTES.EDIT_INGESTION}
+      />
     </Routes>
   );
 };
