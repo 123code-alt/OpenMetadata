@@ -47,9 +47,7 @@ jest.mock('../../ProfilerDetailsCard/ProfilerDetailsCard', () => {
 jest.mock('../../../../Visualisations/Chart/CustomBarChart', () => {
   return jest.fn().mockImplementation(() => <div>CustomBarChart</div>);
 });
-jest.mock('../../../../Visualisations/Chart/OperationDateBarChart', () => {
-  return jest.fn().mockImplementation(() => <div>OperationDateBarChart</div>);
-});
+
 jest.mock('../../../../PageHeader/PageHeader.component', () => {
   return jest.fn().mockImplementation(() => <div>PageHeader</div>);
 });
@@ -59,11 +57,7 @@ jest.mock('../../../../common/DatePickerMenu/DatePickerMenu.component', () => {
 jest.mock('../NoProfilerBanner/NoProfilerBanner.component', () => {
   return jest.fn().mockImplementation(() => <div>NoProfilerBanner</div>);
 });
-jest.mock('../../../../common/SummaryCard/SummaryCard.component', () => {
-  return {
-    SummaryCard: jest.fn().mockImplementation(() => <div>SummaryCard</div>),
-  };
-});
+
 jest.mock('../../../../../constants/profiler.constant', () => ({
   DEFAULT_RANGE_DATA: {
     startTs: 1640995200000,

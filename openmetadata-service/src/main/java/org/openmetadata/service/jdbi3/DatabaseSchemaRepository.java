@@ -67,7 +67,6 @@ import org.openmetadata.schema.type.csv.CsvImportResult;
 import org.openmetadata.schema.utils.JsonUtils;
 import org.openmetadata.service.Entity;
 import org.openmetadata.service.exception.EntityNotFoundException;
-import org.openmetadata.service.resources.databases.DatabaseSchemaResource;
 import org.openmetadata.service.util.EntityUtil;
 import org.openmetadata.service.util.EntityUtil.Fields;
 import org.openmetadata.service.util.EntityUtil.RelationIncludes;
@@ -84,7 +83,7 @@ public class DatabaseSchemaRepository extends EntityRepository<DatabaseSchema> {
 
   public DatabaseSchemaRepository() {
     super(
-        DatabaseSchemaResource.COLLECTION_PATH,
+        "/v1/databaseSchemas/",
         Entity.DATABASE_SCHEMA,
         DatabaseSchema.class,
         Entity.getCollectionDAO().databaseSchemaDAO(),

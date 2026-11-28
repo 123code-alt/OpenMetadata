@@ -7,7 +7,6 @@ import org.openmetadata.common.utils.CommonUtil;
 import org.openmetadata.schema.entity.services.connections.TestConnectionDefinition;
 import org.openmetadata.schema.type.change.ChangeSource;
 import org.openmetadata.service.Entity;
-import org.openmetadata.service.resources.services.connections.TestConnectionDefinitionResource;
 import org.openmetadata.service.util.EntityUtil;
 import org.openmetadata.service.util.EntityUtil.RelationIncludes;
 
@@ -22,7 +21,7 @@ public class TestConnectionDefinitionRepository extends EntityRepository<TestCon
 
   public TestConnectionDefinitionRepository() {
     super(
-        TestConnectionDefinitionResource.COLLECTION_PATH,
+        "/v1/services/testConnectionDefinitions",
         TEST_CONNECTION_DEFINITION,
         TestConnectionDefinition.class,
         Entity.getCollectionDAO().testConnectionDefinitionDAO(),

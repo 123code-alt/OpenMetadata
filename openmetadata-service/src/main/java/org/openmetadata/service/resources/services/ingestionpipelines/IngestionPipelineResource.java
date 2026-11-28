@@ -174,25 +174,33 @@ public class IngestionPipelineResource
     // Set the configuration in repository so it knows what's enabled
     repository.setLogStorageConfiguration(logStorageConfig);
 
-    try {
-      LogStorageInterface logStorage =
-          LogStorageFactory.create(logStorageConfig, pipelineServiceClient, streamableLogsMetrics);
-      repository.setLogStorage(logStorage);
-      LOG.info(
-          "Log storage initialized successfully: type={}",
-          logStorageConfig != null ? logStorageConfig.getType() : "default");
-    } catch (Exception e) {
-      LOG.warn("Failed to initialize configured log storage, using default implementation", e);
+    if (pipelineServiceClient != null
+        || (logStorageConfig != null
+            && (logStorageConfig.getType() == null
+                || !"default".equals(logStorageConfig.getType().value())))) {
       try {
-        // Fallback to default log storage that delegates to pipeline service client
-        LogStorageInterface defaultLogStorage =
-            LogStorageFactory.create(null, pipelineServiceClient, streamableLogsMetrics);
-        repository.setLogStorage(defaultLogStorage);
-        // Set a default configuration so isLogStorageEnabled() returns true
-        repository.setLogStorageConfiguration(new LogStorageConfiguration());
-      } catch (Exception ex) {
-        LOG.error("Failed to initialize default log storage", ex);
+        LogStorageInterface logStorage =
+            LogStorageFactory.create(
+                logStorageConfig, pipelineServiceClient, streamableLogsMetrics);
+        repository.setLogStorage(logStorage);
+        LOG.info(
+            "Log storage initialized successfully: type={}",
+            logStorageConfig != null ? logStorageConfig.getType() : "default");
+      } catch (Exception e) {
+        LOG.warn("Failed to initialize configured log storage, using default implementation", e);
+        try {
+          // Fallback to default log storage that delegates to pipeline service client
+          LogStorageInterface defaultLogStorage =
+              LogStorageFactory.create(null, pipelineServiceClient, streamableLogsMetrics);
+          repository.setLogStorage(defaultLogStorage);
+          // Set a default configuration so isLogStorageEnabled() returns true
+          repository.setLogStorageConfiguration(new LogStorageConfiguration());
+        } catch (Exception ex) {
+          LOG.error("Failed to initialize default log storage", ex);
+        }
       }
+    } else {
+      repository.setLogStorageConfiguration(null);
     }
 
     // Initialize progress tracker for real-time ingestion progress updates.

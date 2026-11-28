@@ -24,7 +24,7 @@ Set-Location .\governance-context
 $repo = (Get-Location).Path
 ```
 
-IDEA：File → Open → 选择 `$repo\pom.xml`。Settings → Build Tools → Maven：Maven home 选择 3.9.9，Importer JDK 与 Runner JRE 都选 JDK 21；Project Structure → Project SDK 也选 JDK 21。Maven 工具窗口点击 **Add Maven Projects**，加入 `governance-context\pom.xml`。使用下面指定的裁剪构建命令，不运行根工程的全量 Lifecycle install。
+IDEA：File → Open → 选择 `$repo\governance-context\pom.xml`，作为 Maven 项目打开。Settings → Build Tools → Maven：Maven home 选择 3.9.9，Importer JDK 与 Runner JRE 都选 JDK 21；Project Structure → Project SDK 也选 JDK 21。终端工作目录仍使用仓库根 `$repo`。若已导入根 `pom.xml`，先在 Maven 工具窗口解除该聚合项目的链接，再加入 `governance-context\pom.xml`，避免同时导入 SDK、operator 等未纳入本分发的模块。使用下面指定的裁剪构建命令，不运行根工程的全量 Lifecycle install。
 
 本文 `mvn.cmd ...` 可在 IDEA Terminal 逐条执行；也可以建立 Maven Run Configuration：Working directory 选仓库根，Command line 填相同参数、去掉开头的 `mvn.cmd`。这就是在 IDEA 中打包，不依赖外部部署脚本。
 
@@ -66,7 +66,7 @@ mvn.cmd -B -ntp -f docker/rdf-store/pom.xml -DskipTests package
 第三条只跳过测试来打包，不代表通过全量测试。可另运行已采用的定向检查：
 
 ```powershell
-mvn.cmd -B -ntp -pl openmetadata-service,openmetadata-mcp spotless:check test '-Dtest=GovernanceContextProfileTest,DefaultToolContextTest,HonestResponseTest' '-Dsurefire.failIfNoSpecifiedTests=false'
+mvn.cmd -B -ntp -f governance-context/pom.xml -pl :openmetadata-service,:openmetadata-mcp spotless:check test '-Dtest=GovernanceContextProfileTest,DefaultToolContextTest,HonestResponseTest,RuleEvaluatorTest,ImpersonationRestrictionFilterTest' '-Dsurefire.failIfNoSpecifiedTests=false'
 ```
 
 `docker/rdf-store` 在这里只是原项目的源码目录名，执行 Maven 和 Java，不启动 Docker。

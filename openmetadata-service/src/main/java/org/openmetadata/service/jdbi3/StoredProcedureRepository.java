@@ -19,7 +19,6 @@ import org.openmetadata.schema.type.LineageDetails;
 import org.openmetadata.schema.type.Relationship;
 import org.openmetadata.schema.type.change.ChangeSource;
 import org.openmetadata.service.Entity;
-import org.openmetadata.service.resources.databases.StoredProcedureResource;
 import org.openmetadata.service.util.EntityUtil;
 import org.openmetadata.service.util.EntityUtil.RelationIncludes;
 import org.openmetadata.service.util.FullyQualifiedName;
@@ -30,7 +29,7 @@ public class StoredProcedureRepository extends EntityRepository<StoredProcedure>
 
   public StoredProcedureRepository() {
     super(
-        StoredProcedureResource.COLLECTION_PATH,
+        "/v1/storedProcedures/",
         STORED_PROCEDURE,
         StoredProcedure.class,
         Entity.getCollectionDAO().storedProcedureDAO(),

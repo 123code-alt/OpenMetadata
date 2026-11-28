@@ -46,6 +46,76 @@ public final class GovernanceContextProfile {
           "teams",
           "types",
           "version");
+  private static final Set<String> REPOSITORIES =
+      Set.of(
+          "AnnouncementRepository",
+          "AppRepository",
+          "AppMarketPlaceRepository",
+          "BotRepository",
+          "ClassificationRepository",
+          "ContextFileRepository",
+          "ContextFileContentRepository",
+          "ContextMemoryRepository",
+          "DirectoryRepository",
+          "DocumentRepository",
+          "DomainRepository",
+          "DriveServiceRepository",
+          "EntityProfileRepository",
+          "EventSubscriptionRepository",
+          "FeedRepository",
+          "FileRepository",
+          "FolderRepository",
+          "GlossaryRepository",
+          "GlossaryTermRepository",
+          "IngestionPipelineRepository",
+          "IntakeFormRepository",
+          "KnowledgePageRepository",
+          "LearningResourceRepository",
+          "McpExecutionRepository",
+          "McpServerRepository",
+          "McpServiceRepository",
+          "NotificationTemplateRepository",
+          "PersonaRepository",
+          "PolicyRepository",
+          "RoleRepository",
+          "SessionRepository",
+          "SpreadsheetRepository",
+          "TagRepository",
+          "TaskRepository",
+          "TaskFormSchemaRepository",
+          "TeamRepository",
+          "TestConnectionDefinitionRepository",
+          "TokenRepository",
+          "TypeRepository",
+          "UserRepository",
+          "UserPreferencesRepository",
+          "WorkflowRepository",
+          "WorkflowDefinitionRepository",
+          "WorkflowInstanceRepository",
+          "WorkflowInstanceStateRepository",
+          "WorksheetRepository");
+  private static final Set<String> INDEX_TYPES =
+      Set.of(
+          "directory",
+          "file",
+          "spreadsheet",
+          "worksheet",
+          "domain",
+          "glossary",
+          "glossaryTerm",
+          "tag",
+          "classification",
+          "user",
+          "team",
+          "driveService",
+          "mcpService",
+          "mcpServer",
+          "mcpExecution",
+          "ingestionPipeline",
+          "page",
+          "folder",
+          "contextFile",
+          "contextMemory");
   private static final Set<String> WRITE_TYPES =
       Set.of(
           "glossary",
@@ -55,7 +125,7 @@ public final class GovernanceContextProfile {
           "page",
           "contextMemory",
           "contextFile",
-          "contextFolder");
+          "folder");
   private static final Set<String> READ_TYPES =
       Set.of(
           "glossary",
@@ -68,7 +138,7 @@ public final class GovernanceContextProfile {
           "contextFileContent",
           "spreadsheet",
           "worksheet",
-          "contextFolder",
+          "folder",
           "file",
           "directory",
           "driveService",
@@ -105,6 +175,14 @@ public final class GovernanceContextProfile {
     throw new IllegalArgumentException("Unknown OpenMetadata distribution: " + mode);
   }
 
+  public static boolean includesRepository(String className) {
+    return !enabled() || REPOSITORIES.contains(className.substring(className.lastIndexOf('.') + 1));
+  }
+
+  public static boolean includesIndex(String entityType) {
+    return !enabled() || INDEX_TYPES.contains(entityType);
+  }
+
   public static boolean includesResource(String name) {
     if (!enabled()) {
       return true;
@@ -127,7 +205,7 @@ public final class GovernanceContextProfile {
     if ("services".equals(area)) {
       return relative.startsWith("services.mcp.")
           || relative.startsWith("services.drive.")
-          || relative.startsWith("services.ingestionPipelines.");
+          || relative.startsWith("services.ingestionpipelines.");
     }
     return SHARED_PACKAGES.contains(area);
   }

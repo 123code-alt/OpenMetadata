@@ -34,7 +34,6 @@ import org.openmetadata.service.Entity;
 import org.openmetadata.service.exception.EntityNotFoundException;
 import org.openmetadata.service.exception.PreconditionFailedException;
 import org.openmetadata.service.governance.workflows.WorkflowEventConsumer;
-import org.openmetadata.service.resources.dqtests.TestCaseResultResource;
 import org.openmetadata.service.search.SearchListFilter;
 import org.openmetadata.service.tasks.TaskWorkflowHandler;
 import org.openmetadata.service.util.EntityUtil;
@@ -70,7 +69,7 @@ public class TestCaseResultRepository extends EntityTimeSeriesRepository<TestCas
 
   public TestCaseResultRepository() {
     super(
-        TestCaseResultResource.COLLECTION_PATH,
+        "/v1/dataQuality/testCases/testCaseResults",
         Entity.getCollectionDAO().testCaseResultTimeSeriesDao(),
         TestCaseResult.class,
         Entity.TEST_CASE_RESULT);

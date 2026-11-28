@@ -46,7 +46,6 @@ import org.openmetadata.schema.type.TagLabel;
 import org.openmetadata.schema.utils.JsonUtils;
 import org.openmetadata.service.Entity;
 import org.openmetadata.service.jdbi3.DataProductRepository;
-import org.openmetadata.service.jdbi3.DatabaseRepository;
 import org.openmetadata.service.jdbi3.DatabaseSchemaRepository;
 import org.openmetadata.service.jdbi3.DomainRepository;
 import org.openmetadata.service.jdbi3.EntityRepository;
@@ -137,7 +136,8 @@ class RuleEvaluatorTest {
     // the mock would otherwise hand back null. Real repositories always return a Fields.
     Mockito.when(tableRepository.getFields(anyString())).thenReturn(EntityUtil.Fields.EMPTY_FIELDS);
 
-    DatabaseRepository databaseRepository = stubIndexingPolicy(mock(DatabaseRepository.class));
+    EntityRepository<Database> databaseRepository =
+        stubIndexingPolicy(mock(EntityRepository.class));
     Mockito.when(databaseRepository.getEntityType()).thenReturn(Entity.DATABASE);
     Mockito.when(databaseRepository.isSupportsOwners()).thenReturn(Boolean.TRUE);
     Entity.registerEntity(Database.class, Entity.DATABASE, databaseRepository);

@@ -227,6 +227,7 @@
         },
         "dataClassification": {
           "type": "object",
+          "javaType": "org.openmetadata.schema.entity.ai.DataClassification__2",
           "description": "Classification of data accessed by this server",
           "properties": {
             "accessesPII": {
@@ -607,6 +608,7 @@
         },
         "dataClassification": {
           "type": "object",
+          "javaType": "org.openmetadata.schema.entity.ai.DataClassification__1",
           "description": "Data classification for the resource",
           "properties": {
             "sensitivityLevel": {"$ref": "#/definitions/sensitivityLevel"},

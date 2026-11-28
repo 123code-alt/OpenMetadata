@@ -60,7 +60,6 @@ import org.openmetadata.service.exception.CatalogExceptionMessage;
 import org.openmetadata.service.jdbi3.FeedRepository.TaskWorkflow;
 import org.openmetadata.service.jdbi3.FeedRepository.ThreadContext;
 import org.openmetadata.service.resources.feeds.MessageParser.EntityLink;
-import org.openmetadata.service.resources.topics.TopicResource;
 import org.openmetadata.service.security.mask.PIIMasker;
 import org.openmetadata.service.util.EntityUtil;
 import org.openmetadata.service.util.EntityUtil.Fields;
@@ -77,7 +76,7 @@ public class TopicRepository extends EntityRepository<Topic> {
 
   public TopicRepository() {
     super(
-        TopicResource.COLLECTION_PATH,
+        "/v1/topics/",
         Entity.TOPIC,
         Topic.class,
         Entity.getCollectionDAO().topicDAO(),

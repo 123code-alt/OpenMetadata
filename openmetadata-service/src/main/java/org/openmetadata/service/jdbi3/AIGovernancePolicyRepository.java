@@ -17,7 +17,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.openmetadata.schema.entity.ai.AIGovernancePolicy;
 import org.openmetadata.schema.type.change.ChangeSource;
 import org.openmetadata.service.Entity;
-import org.openmetadata.service.resources.ai.AIGovernancePolicyResource;
 import org.openmetadata.service.util.EntityUtil.Fields;
 import org.openmetadata.service.util.EntityUtil.RelationIncludes;
 
@@ -29,7 +28,7 @@ public class AIGovernancePolicyRepository extends EntityRepository<AIGovernanceP
 
   public AIGovernancePolicyRepository() {
     super(
-        AIGovernancePolicyResource.COLLECTION_PATH,
+        "/v1/aiGovernancePolicies/",
         Entity.AI_GOVERNANCE_POLICY,
         AIGovernancePolicy.class,
         Entity.getCollectionDAO().aiGovernancePolicyDAO(),

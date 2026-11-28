@@ -71,7 +71,6 @@ import org.openmetadata.search.IndexMapping;
 import org.openmetadata.service.Entity;
 import org.openmetadata.service.events.lifecycle.EntityLifecycleEventDispatcher;
 import org.openmetadata.service.events.lifecycle.EntityLifecycleEventHandler;
-import org.openmetadata.service.resources.dqtests.TestSuiteResource;
 import org.openmetadata.service.resources.feeds.MessageParser;
 import org.openmetadata.service.search.SearchAggregation;
 import org.openmetadata.service.search.SearchClient;
@@ -141,7 +140,7 @@ public class TestSuiteRepository extends EntityRepository<TestSuite> {
 
   public TestSuiteRepository() {
     super(
-        TestSuiteResource.COLLECTION_PATH,
+        "/v1/dataQuality/testSuites/",
         TEST_SUITE,
         TestSuite.class,
         Entity.getCollectionDAO().testSuiteDAO(),

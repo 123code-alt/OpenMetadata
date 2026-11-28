@@ -9,7 +9,6 @@ import java.util.List;
 import org.openmetadata.schema.dataInsight.DataInsightChart;
 import org.openmetadata.schema.dataInsight.DataInsightChartResult;
 import org.openmetadata.service.Entity;
-import org.openmetadata.service.resources.datainsight.DataInsightChartResource;
 import org.openmetadata.service.util.EntityUtil;
 import org.openmetadata.service.util.EntityUtil.RelationIncludes;
 
@@ -73,7 +72,7 @@ public class DataInsightChartRepository extends EntityRepository<DataInsightChar
 
   public DataInsightChartRepository() {
     super(
-        DataInsightChartResource.COLLECTION_PATH,
+        "/v1/analytics/dataInsights/charts/",
         DATA_INSIGHT_CHART,
         DataInsightChart.class,
         Entity.getCollectionDAO().dataInsightChartDAO(),

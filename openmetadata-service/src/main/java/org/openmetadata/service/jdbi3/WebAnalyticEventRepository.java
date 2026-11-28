@@ -16,7 +16,6 @@ import org.openmetadata.schema.system.EntityError;
 import org.openmetadata.schema.utils.JsonUtils;
 import org.openmetadata.schema.utils.ResultList;
 import org.openmetadata.service.Entity;
-import org.openmetadata.service.resources.analytics.WebAnalyticEventResource;
 import org.openmetadata.service.util.EntityUtil;
 import org.openmetadata.service.util.EntityUtil.RelationIncludes;
 import org.openmetadata.service.util.FullyQualifiedName;
@@ -39,7 +38,7 @@ public class WebAnalyticEventRepository extends EntityRepository<WebAnalyticEven
 
   public WebAnalyticEventRepository() {
     super(
-        WebAnalyticEventResource.COLLECTION_PATH,
+        "/v1/analytics/web/events",
         WEB_ANALYTIC_EVENT,
         WebAnalyticEvent.class,
         Entity.getCollectionDAO().webAnalyticEventDAO(),

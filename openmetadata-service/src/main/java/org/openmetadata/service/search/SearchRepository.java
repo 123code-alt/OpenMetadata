@@ -144,6 +144,7 @@ import org.openmetadata.service.apps.bundles.searchIndex.BulkSink;
 import org.openmetadata.service.apps.bundles.searchIndex.ElasticSearchBulkSink;
 import org.openmetadata.service.apps.bundles.searchIndex.OpenSearchBulkSink;
 import org.openmetadata.service.clients.llm.LlmConfigHolder;
+import org.openmetadata.service.distribution.GovernanceContextProfile;
 import org.openmetadata.service.events.lifecycle.EntityLifecycleEventDispatcher;
 import org.openmetadata.service.events.lifecycle.handlers.SearchIndexHandler;
 import org.openmetadata.service.exception.EntityNotFoundException;
@@ -562,7 +563,10 @@ public class SearchRepository {
 
   private void loadIndexMappings() {
     IndexMappingLoader mappingLoader = IndexMappingLoader.getInstance();
-    entityIndexMap = mappingLoader.getIndexMapping();
+    entityIndexMap = new HashMap<>(mappingLoader.getIndexMapping());
+    entityIndexMap
+        .keySet()
+        .removeIf(entityType -> !GovernanceContextProfile.includesIndex(entityType));
     aliasIndexMap = buildAliasIndexMap(entityIndexMap);
     knownIndexNames = SearchIndexUtils.knownIndexNames(entityIndexMap);
   }

@@ -14,10 +14,6 @@
 import { findByTestId, render } from '@testing-library/react';
 import ProfilePicture from './ProfilePicture';
 
-jest.mock('../AvatarComponent/Avatar', () => {
-  return jest.fn().mockImplementation(() => <div>Avatar</div>);
-});
-
 jest.mock('../../../utils/UserDataUtils', () => {
   return {
     fetchAllUsers: jest.fn(),

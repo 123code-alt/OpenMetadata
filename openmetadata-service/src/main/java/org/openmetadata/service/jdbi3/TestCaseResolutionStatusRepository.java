@@ -41,7 +41,6 @@ import org.openmetadata.schema.utils.ResultList;
 import org.openmetadata.service.Entity;
 import org.openmetadata.service.exception.EntityNotFoundException;
 import org.openmetadata.service.resources.dqtests.TestCaseResolutionStatusMapper;
-import org.openmetadata.service.resources.dqtests.TestCaseResolutionStatusResource;
 import org.openmetadata.service.resources.feeds.MessageParser;
 import org.openmetadata.service.search.SearchListFilter;
 import org.openmetadata.service.tasks.IncidentWorkflowStages;
@@ -58,7 +57,7 @@ public class TestCaseResolutionStatusRepository
 
   public TestCaseResolutionStatusRepository() {
     super(
-        TestCaseResolutionStatusResource.COLLECTION_PATH,
+        "/v1/dataQuality/testCases/testCaseIncidentStatus",
         Entity.getCollectionDAO().testCaseResolutionStatusTimeSeriesDao(),
         TestCaseResolutionStatus.class,
         Entity.TEST_CASE_RESOLUTION_STATUS);

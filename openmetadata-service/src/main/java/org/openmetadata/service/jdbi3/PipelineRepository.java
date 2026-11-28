@@ -89,7 +89,6 @@ import org.openmetadata.service.rdf.RdfRepository;
 import org.openmetadata.service.rdf.RdfUpdater;
 import org.openmetadata.service.resources.databases.DatasourceConfig;
 import org.openmetadata.service.resources.feeds.MessageParser.EntityLink;
-import org.openmetadata.service.resources.pipelines.PipelineResource;
 import org.openmetadata.service.search.indexes.PipelineExecutionIndex;
 import org.openmetadata.service.util.EntityUtil;
 import org.openmetadata.service.util.EntityUtil.Fields;
@@ -108,7 +107,7 @@ public class PipelineRepository extends EntityRepository<Pipeline> {
 
   public PipelineRepository() {
     super(
-        PipelineResource.COLLECTION_PATH,
+        "/v1/pipelines/",
         Entity.PIPELINE,
         Pipeline.class,
         Entity.getCollectionDAO().pipelineDAO(),

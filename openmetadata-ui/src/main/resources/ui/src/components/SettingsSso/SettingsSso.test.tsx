@@ -51,15 +51,6 @@ jest.mock('../../rest/securityConfigAPI', () => ({
   patchSecurityConfiguration: jest.fn(),
 }));
 
-jest.mock('../../utils/SSOUtilClassBase', () => ({
-  default: {
-    isSSOEnabled: jest.fn().mockReturnValue(true),
-    getSSOProvider: jest.fn().mockReturnValue(AuthProvider.Google),
-    getSCIMAccessTokenCardComponent: jest.fn(),
-    getScimGroupMappingComponent: jest.fn(),
-  },
-}));
-
 jest.mock('./ProviderSelector/ProviderSelector', () => {
   return function ProviderSelector({ onProviderSelect }: any) {
     return (

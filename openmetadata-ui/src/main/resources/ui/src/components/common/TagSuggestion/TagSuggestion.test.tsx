@@ -52,19 +52,6 @@ jest.mock('lodash', () => {
   };
 });
 
-jest.mock('../atoms/TagChip', () => ({
-  TagChip: ({ label, onDelete }: { label: string; onDelete?: () => void }) => (
-    <span data-testid="tag-chip">
-      {label}
-      {onDelete && (
-        <button data-testid="tag-chip-delete" onClick={onDelete}>
-          x
-        </button>
-      )}
-    </span>
-  ),
-}));
-
 type MockItem = { id: string; label: string; supportingText?: string };
 
 jest.mock('@openmetadata/ui-core-components', () => {

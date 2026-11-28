@@ -82,10 +82,6 @@ jest.mock('../../../../utils/i18next/LocalUtil', () => ({
   Transi18next: jest.fn().mockReturnValue('text'),
 }));
 
-jest.mock('../../../DataInsight/KPILatestResultsV1', () =>
-  jest.fn().mockReturnValue(<p>KPILatestResultsV1.Component</p>)
-);
-
 jest.mock('../Common/WidgetEmptyState/WidgetEmptyState', () =>
   jest.fn().mockReturnValue(<p>WidgetEmptyState.Component</p>)
 );

@@ -57,6 +57,7 @@ import org.openmetadata.schema.type.Include;
 import org.openmetadata.schema.type.MetadataOperation;
 import org.openmetadata.schema.type.TagLabel;
 import org.openmetadata.service.audit.AuditLogRepository;
+import org.openmetadata.service.distribution.GovernanceContextProfile;
 import org.openmetadata.service.events.lifecycle.EntityLifecycleEventDispatcher;
 import org.openmetadata.service.events.lifecycle.handlers.DomainSyncHandler;
 import org.openmetadata.service.exception.CatalogExceptionMessage;
@@ -391,11 +392,21 @@ public final class Entity {
   private Entity() {}
 
   public static void initializeRepositories(OpenMetadataApplicationConfig config, Jdbi jdbi) {
+    initializeRepositories(config, jdbi, false);
+  }
+
+  public static void initializeRepositoriesForMigration(
+      OpenMetadataApplicationConfig config, Jdbi jdbi) {
+    initializeRepositories(config, jdbi, true);
+  }
+
+  private static void initializeRepositories(
+      OpenMetadataApplicationConfig config, Jdbi jdbi, boolean includeMigrationRepositories) {
     if (!initializedRepositories) {
       tokenRepository = new TokenRepository();
       policyRepository = new PolicyRepository();
       roleRepository = new RoleRepository();
-      List<Class<?>> repositories = getRepositories();
+      List<Class<?>> repositories = getRepositories(includeMigrationRepositories);
       for (Class<?> clz : repositories) {
         if (Modifier.isAbstract(clz.getModifiers())) {
           continue; // Don't instantiate abstract classes
@@ -958,7 +969,7 @@ public final class Entity {
   }
 
   /** Compile a list of REST collections based on Resource classes marked with {@code Repository} annotation */
-  private static List<Class<?>> getRepositories() {
+  private static List<Class<?>> getRepositories(boolean includeMigrationRepositories) {
     try (ScanResult scanResult =
         new ClassGraph()
             .enableAnnotationInfo()
@@ -970,6 +981,10 @@ public final class Entity {
       Map<String, Class<?>> namedRepositories = new HashMap<>();
 
       for (Class<?> clz : classList.loadClasses()) {
+        if (!includeMigrationRepositories
+            && !GovernanceContextProfile.includesRepository(clz.getName())) {
+          continue;
+        }
         Repository annotation = clz.getAnnotation(Repository.class);
         String name = annotation.name();
 

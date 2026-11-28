@@ -21,10 +21,12 @@
 
 ## 构建范围与裁剪边界
 
-`pom.xml` 聚合 common、spec、shaded-deps、service、mcp、ui-core、ui 和 runtime，排除 SDK、operator、客户端及全量集成测试项目。根 POM 仍保留上游模块定义。后端通过分发配置过滤 REST 资源注册；前端移除无关主路由及不再引用的页面文件。
+`pom.xml` 聚合 common、spec、shaded-deps、service、mcp、ui-core、ui 和 runtime，排除 SDK、operator、客户端及全量集成测试项目。IDEA 直接导入本目录的 `pom.xml`；根 POM 仍保留上游模块定义。后端同时过滤 REST、仓储和搜索索引注册，前端清理无关路由、页面和组件。
 
-本版是**保留共享底座的首轮裁剪版**。共享实体、生成模型、迁移、仓储、搜索与公共组件仍保留，不是所有无关代码都已物理删除。该取舍保留原术语审批及上下文依赖，避免替换原架构。
+已完成第二轮物理裁剪：删除 145 个后端 Java 实现文件（包括 58 个 REST Resource、32 个仓储）、295 个前端生产代码文件及其失去用途的测试、41 份 Schema。运行时仅注册治理和上下文依赖的仓储，搜索索引集合收窄到 20 类。保留 JSON Schema 生成链路，剩余 877 份 Schema。
 
-默认 `OPENMETADATA_DISTRIBUTION=governance-context`。`full` 只恢复后端资源注册／通用工具范围用于兼容排查，不能恢复已删除的前端页面或 MCP 工具，不是完整产品切换开关。
+当前仍保留共享实体、迁移、部分未注册仓储、搜索与公共组件，不能视为彻底独立的小型重写项目。裁剪数量、代码行统计与具体边界见 [PRUNING.md](../docs/governance-context/PRUNING.md)，运行证据见 [VALIDATION.md](../docs/governance-context/VALIDATION.md)。
+
+默认 `OPENMETADATA_DISTRIBUTION=governance-context`。`full` 仅放宽剩余后端注册／通用工具范围用于排查，不能恢复已删除的资源、仓储、页面或 MCP 工具，不是完整产品切换开关。
 
 模型默认关闭：`LLM_PROVIDER=noop`、`SEMANTIC_SEARCH_ENABLED=false`。文章、记忆、普通检索与文档存储可验证；语义检索、模型提取、远程 Drive 同步、第三方应用不在本轮联合验收内。

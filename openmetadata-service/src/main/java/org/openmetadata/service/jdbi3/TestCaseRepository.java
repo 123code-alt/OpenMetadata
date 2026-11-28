@@ -109,7 +109,6 @@ import org.openmetadata.service.events.lifecycle.EntityUpdateContext;
 import org.openmetadata.service.exception.EntityNotFoundException;
 import org.openmetadata.service.exception.UnhandledServerException;
 import org.openmetadata.service.rdf.RdfUpdater;
-import org.openmetadata.service.resources.dqtests.TestCaseResource;
 import org.openmetadata.service.resources.dqtests.TestSuiteMapper;
 import org.openmetadata.service.resources.feeds.MessageParser.EntityLink;
 import org.openmetadata.service.resources.tags.TagLabelUtil;
@@ -164,7 +163,7 @@ public class TestCaseRepository extends EntityRepository<TestCase> {
 
   public TestCaseRepository() {
     super(
-        TestCaseResource.COLLECTION_PATH,
+        "/v1/dataQuality/testCases/",
         TEST_CASE,
         TestCase.class,
         Entity.getCollectionDAO().testCaseDAO(),

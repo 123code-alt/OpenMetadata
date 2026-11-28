@@ -1208,7 +1208,7 @@ public class OpenMetadataOperations implements Callable<Integer> {
           boolean force) {
     try {
       LOG.info("Migrating the OpenMetadata Schema.");
-      parseConfig();
+      parseConfig(true);
       validateAndRunSystemDataMigrations(force);
       LOG.info("Running Flowable schema upgrade.");
       WorkflowHandler.initialize(config, true);
@@ -3307,6 +3307,10 @@ public class OpenMetadataOperations implements Callable<Integer> {
   }
 
   public void parseConfig() throws Exception {
+    parseConfig(false);
+  }
+
+  private void parseConfig(boolean includeMigrationRepositories) throws Exception {
     ObjectMapper objectMapper = Jackson.newObjectMapper();
     objectMapper.registerSubtypes(
         AuditExcludeFilterFactory.class,
@@ -3365,7 +3369,11 @@ public class OpenMetadataOperations implements Callable<Integer> {
             config.getSecretsManagerConfiguration(), config.getClusterName());
 
     Entity.setSearchRepository(searchRepository);
-    Entity.initializeRepositories(config, jdbi);
+    if (includeMigrationRepositories) {
+      Entity.initializeRepositoriesForMigration(config, jdbi);
+    } else {
+      Entity.initializeRepositories(config, jdbi);
+    }
     ConnectionType connType = ConnectionType.from(config.getDataSourceFactory().getDriverClass());
     DatasourceConfig.initialize(connType.label);
     OpenMetadataApplicationConfigHolder.initialize(config);

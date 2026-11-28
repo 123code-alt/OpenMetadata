@@ -73,7 +73,6 @@ import org.openmetadata.schema.type.aicontext.TableContext;
 import org.openmetadata.schema.type.aicontext.TableDataModel;
 import org.openmetadata.schema.utils.JsonUtils;
 import org.openmetadata.service.Entity;
-import org.openmetadata.service.jdbi3.TableRepository;
 import org.openmetadata.service.resources.context.ContextMemoryVisibility;
 import org.openmetadata.service.search.vector.OpenSearchVectorService;
 import org.openmetadata.service.security.AuthorizationException;
@@ -438,7 +437,6 @@ public class AIContextBuilder {
     Observability observability = null;
     if (entity instanceof Table) {
       observability = new Observability().withDataQuality(dataQuality);
-      applyProfile(observability, entity);
       if (isEmpty(observability)) {
         observability = null;
       }
@@ -450,18 +448,6 @@ public class AIContextBuilder {
     return observability.getDataQuality() == null
         && observability.getRowCount() == null
         && nullOrEmpty(observability.getColumnProfiles());
-  }
-
-  private void applyProfile(Observability observability, EntityInterface entity) {
-    if (authorizer != null && securityContext != null) {
-      try {
-        TableRepository repository = (TableRepository) Entity.getEntityRepository(Entity.TABLE);
-        Table profiled = repository.getLatestTableProfile(fqn, true, authorizer, securityContext);
-        populateProfile(observability, profiled);
-      } catch (Exception e) {
-        LOG.warn("AIContext: failed to load profile for {}: {}", fqn, e.getMessage());
-      }
-    }
   }
 
   static void populateProfile(Observability observability, Table profiled) {

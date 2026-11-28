@@ -61,7 +61,7 @@
           },
           "entityType": {
             "type": "string",
-            "description": "Supported types: glossary, glossaryTerm, classification, tag, page, contextMemory, contextFile, contextFileContent, contextFolder, file, directory, spreadsheet, worksheet, driveService, user, team, role, policy, persona, type, domain, workflowDefinition. all and dataAsset are aggregate search scopes; the server still restricts results to retained types."
+            "description": "Supported types: glossary, glossaryTerm, classification, tag, page, contextMemory, contextFile, contextFileContent, folder, file, directory, spreadsheet, worksheet, driveService, user, team, role, policy, persona, type, domain, workflowDefinition. all and dataAsset are aggregate search scopes; the server still restricts results to retained types."
           },
           "queryFilter": {
             "type": "string",
@@ -206,7 +206,7 @@
         "properties": {
           "entityType": {
             "type": "string",
-            "description": "Supported types in this distribution: glossary, glossaryTerm, classification, tag, page, contextMemory, contextFile, contextFileContent, contextFolder, file, directory, spreadsheet, worksheet, driveService, user, team, role, policy, persona, type, domain, workflowDefinition."
+            "description": "Supported types in this distribution: glossary, glossaryTerm, classification, tag, page, contextMemory, contextFile, contextFileContent, folder, file, directory, spreadsheet, worksheet, driveService, user, team, role, policy, persona, type, domain, workflowDefinition."
           },
           "fqn": {
             "type": "string",
@@ -386,13 +386,13 @@
         "idempotentHint": false,
         "openWorldHint": false
       },
-      "description": "Create a retained entity through its original repository, with original validation, authorization and versioning. Does not modify existing entities; use patch_entity for edits. Read describe_entity_type first for required attributes. Allowed types: glossary, glossaryTerm, classification, tag, page, contextMemory, contextFile, contextFolder.",
+      "description": "Create a retained entity through its original repository, with original validation, authorization and versioning. Does not modify existing entities; use patch_entity for edits. Read describe_entity_type first for required attributes. Allowed types: glossary, glossaryTerm, classification, tag, page, contextMemory, contextFile, folder.",
       "parameters": {
         "type": "object",
         "properties": {
           "entityType": {
             "type": "string",
-            "description": "Supported types in this distribution: glossary, glossaryTerm, classification, tag, page, contextMemory, contextFile, contextFolder."
+            "description": "Supported types in this distribution: glossary, glossaryTerm, classification, tag, page, contextMemory, contextFile, folder."
           },
           "name": {
             "type": "string",
@@ -464,7 +464,7 @@
         "properties": {
           "entityType": {
             "type": "string",
-            "description": "Supported types in this distribution: glossary, glossaryTerm, classification, tag, page, contextMemory, contextFile, contextFileContent, contextFolder, file, directory, spreadsheet, worksheet, driveService, user, team, role, policy, persona, type, domain, workflowDefinition."
+            "description": "Supported types in this distribution: glossary, glossaryTerm, classification, tag, page, contextMemory, contextFile, contextFileContent, folder, file, directory, spreadsheet, worksheet, driveService, user, team, role, policy, persona, type, domain, workflowDefinition."
           }
         },
         "required": [
@@ -487,7 +487,7 @@
         "properties": {
           "entityType": {
             "type": "string",
-            "description": "Supported types in this distribution: glossary, glossaryTerm, classification, tag, page, contextMemory, contextFile, contextFolder."
+            "description": "Supported types in this distribution: glossary, glossaryTerm, classification, tag, page, contextMemory, contextFile, folder."
           },
           "fqn": {
             "type": "string",

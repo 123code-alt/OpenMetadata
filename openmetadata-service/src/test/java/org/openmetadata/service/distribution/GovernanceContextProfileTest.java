@@ -58,6 +58,29 @@ class GovernanceContextProfileTest {
   }
 
   @Test
+  void retainOnlyRequiredRepositoriesAndIndexes() {
+    assertTrue(
+        GovernanceContextProfile.includesRepository(
+            "org.openmetadata.service.jdbi3.GlossaryTermRepository"));
+    assertTrue(
+        GovernanceContextProfile.includesRepository(
+            "org.openmetadata.service.jdbi3.ContextFileRepository"));
+    assertTrue(
+        GovernanceContextProfile.includesRepository(
+            "org.openmetadata.service.jdbi3.WorkflowInstanceRepository"));
+    assertFalse(
+        GovernanceContextProfile.includesRepository(
+            "org.openmetadata.service.jdbi3.TableRepository"));
+    assertFalse(
+        GovernanceContextProfile.includesRepository(
+            "org.openmetadata.service.jdbi3.TestCaseRepository"));
+    assertTrue(GovernanceContextProfile.includesIndex("folder"));
+    assertTrue(GovernanceContextProfile.includesIndex("glossaryTerm"));
+    assertFalse(GovernanceContextProfile.includesIndex("table"));
+    assertFalse(GovernanceContextProfile.includesIndex("testCase"));
+  }
+
+  @Test
   void rejectUnsupportedGenericWritesAndMixedBulkReads() {
     assertThrows(
         IllegalArgumentException.class,

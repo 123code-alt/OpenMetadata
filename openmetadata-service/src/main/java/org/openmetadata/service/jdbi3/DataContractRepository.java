@@ -82,7 +82,6 @@ import org.openmetadata.service.exception.BadRequestException;
 import org.openmetadata.service.exception.DataContractValidationException;
 import org.openmetadata.service.exception.EntityNotFoundException;
 import org.openmetadata.service.formatter.util.FormatterUtil;
-import org.openmetadata.service.resources.data.DataContractResource;
 import org.openmetadata.service.resources.dqtests.TestSuiteMapper;
 import org.openmetadata.service.resources.services.ingestionpipelines.IngestionPipelineMapper;
 import org.openmetadata.service.rules.RuleEngine;
@@ -122,7 +121,7 @@ public class DataContractRepository extends EntityRepository<DataContract> {
 
   public DataContractRepository(OpenMetadataApplicationConfig config) {
     super(
-        DataContractResource.COLLECTION_PATH,
+        "/v1/dataContracts/",
         Entity.DATA_CONTRACT,
         DataContract.class,
         Entity.getCollectionDAO().dataContractDAO(),

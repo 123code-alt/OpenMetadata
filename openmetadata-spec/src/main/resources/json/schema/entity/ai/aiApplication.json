@@ -163,6 +163,7 @@
         },
         "dataClassification": {
           "type": "object",
+          "javaType": "org.openmetadata.schema.entity.ai.DataClassification",
           "description": "Classification of data accessed by this application",
           "properties": {
             "accessesPII": {

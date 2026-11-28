@@ -129,7 +129,6 @@ import org.openmetadata.service.jdbi3.FeedRepository.TaskWorkflow;
 import org.openmetadata.service.jdbi3.FeedRepository.ThreadContext;
 import org.openmetadata.service.rdf.RdfUpdater;
 import org.openmetadata.service.resources.databases.DatabaseUtil;
-import org.openmetadata.service.resources.databases.TableResource;
 import org.openmetadata.service.resources.feeds.MessageParser.EntityLink;
 import org.openmetadata.service.search.PropagationDescriptor;
 import org.openmetadata.service.security.Authorizer;
@@ -177,7 +176,7 @@ public class TableRepository extends EntityRepository<Table> {
 
   public TableRepository() {
     super(
-        TableResource.COLLECTION_PATH,
+        "/v1/tables/",
         TABLE,
         Table.class,
         Entity.getCollectionDAO().tableDAO(),

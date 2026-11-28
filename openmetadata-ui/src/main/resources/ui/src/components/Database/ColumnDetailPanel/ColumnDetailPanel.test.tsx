@@ -14,7 +14,7 @@ import { act, fireEvent, render, waitFor } from '@testing-library/react';
 import { AxiosError } from 'axios';
 import { lowerCase } from 'lodash';
 import { EntityType } from '../../../enums/entity.enum';
-import { Column, State, Table } from '../../../generated/entity/data/table';
+import { Column, State } from '../../../generated/entity/data/table';
 import { LabelType } from '../../../generated/tests/testCase';
 import { DataType } from '../../../generated/tests/testDefinition';
 import { TagSource } from '../../../generated/type/tagLabel';
@@ -368,31 +368,6 @@ jest.mock('../../../utils/EntityNameUtils', () => ({
   getEntityName: jest
     .fn()
     .mockImplementation((entity) => entity?.displayName || entity?.name || ''),
-}));
-
-jest.mock('../../../utils/EntitySummaryPanelUtils', () => ({
-  toEntityData: jest.fn().mockImplementation((column) => {
-    if (!column) {
-      return undefined;
-    }
-
-    const extension =
-      'extension' in column &&
-      typeof column.extension === 'object' &&
-      column.extension !== null
-        ? (column.extension as Table['extension'])
-        : undefined;
-
-    const entityData: {
-      extension?: Table['extension'];
-      [key: string]: unknown;
-    } = {};
-    if (extension) {
-      entityData.extension = extension;
-    }
-
-    return entityData;
-  }),
 }));
 
 jest.mock('../../../utils/StringUtils', () => ({

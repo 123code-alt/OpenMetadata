@@ -11,7 +11,6 @@ import org.openmetadata.schema.tests.type.TestCaseDimensionResult;
 import org.openmetadata.schema.utils.JsonUtils;
 import org.openmetadata.schema.utils.ResultList;
 import org.openmetadata.service.Entity;
-import org.openmetadata.service.resources.dqtests.TestCaseDimensionResultResource;
 
 @Slf4j
 public class TestCaseDimensionResultRepository
@@ -23,7 +22,7 @@ public class TestCaseDimensionResultRepository
 
   public TestCaseDimensionResultRepository() {
     super(
-        TestCaseDimensionResultResource.COLLECTION_PATH,
+        "/v1/dataQuality/testCases/dimensionResults",
         Entity.getCollectionDAO().testCaseDimensionResultTimeSeriesDao(),
         TestCaseDimensionResult.class,
         Entity.TEST_CASE_DIMENSION_RESULT);

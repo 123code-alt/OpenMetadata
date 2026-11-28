@@ -68,9 +68,7 @@ jest.mock('../../../../utils/ToastUtils', () => ({
 jest.mock('../../../../utils/TablePureUtils', () => ({
   generateEntityLink: jest.fn().mockReturnValue('entityLink'),
 }));
-jest.mock('../../../../constants/mockTourData.constants', () => ({
-  mockDatasetData: { tableDetails: {} },
-}));
+
 jest.mock('../../../../hooks/useFqn', () => ({
   useFqn: jest.fn().mockReturnValue('table1'),
 }));

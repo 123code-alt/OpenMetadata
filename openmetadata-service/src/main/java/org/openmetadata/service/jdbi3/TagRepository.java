@@ -51,11 +51,9 @@ import org.openmetadata.schema.api.AddTagToAssetsRequest;
 import org.openmetadata.schema.api.feed.ResolveTask;
 import org.openmetadata.schema.entity.classification.Classification;
 import org.openmetadata.schema.entity.classification.Tag;
-import org.openmetadata.schema.entity.data.Table;
 import org.openmetadata.schema.entity.feed.Thread;
 import org.openmetadata.schema.entity.teams.Team;
 import org.openmetadata.schema.type.ApiStatus;
-import org.openmetadata.schema.type.Column;
 import org.openmetadata.schema.type.EntityReference;
 import org.openmetadata.schema.type.EntityStatus;
 import org.openmetadata.schema.type.Include;
@@ -548,18 +546,6 @@ public class TagRepository extends EntityRepository<Tag> {
       // Update Result Processed
       result.setNumberOfRowsProcessed(result.getNumberOfRowsProcessed() + 1);
 
-      // Handle column assets specially - columns don't have their own repository
-      if (Entity.TABLE_COLUMN.equals(ref.getType())) {
-        try {
-          addTagToColumn(ref, tagLabel, dryRun, success, failures, result);
-        } catch (Exception ex) {
-          failures.add(new BulkResponse().withRequest(ref).withMessage(ex.getMessage()));
-          result.withFailedRequest(failures);
-          result.setNumberOfRowsFailed(result.getNumberOfRowsFailed() + 1);
-        }
-        continue;
-      }
-
       EntityRepository<?> entityRepository = Entity.getEntityRepository(ref.getType());
       EntityInterface asset =
           entityRepository.get(null, ref.getId(), entityRepository.getFields("tags"));
@@ -608,77 +594,6 @@ public class TagRepository extends EntityRepository<Tag> {
     return result;
   }
 
-  /**
-   * Add a tag to a column through its parent table.
-   * Columns are not standalone entities, so we need to update the parent table's column.
-   */
-  private void addTagToColumn(
-      EntityReference columnRef,
-      TagLabel tagLabel,
-      boolean dryRun,
-      List<BulkResponse> success,
-      List<BulkResponse> failures,
-      BulkOperationResult result) {
-    String columnFqn = columnRef.getFullyQualifiedName();
-    if (columnFqn == null) {
-      throw new IllegalArgumentException("Column FQN is required");
-    }
-
-    // Extract table FQN from column FQN (format: service.database.schema.table.column[.nested...])
-    String tableFqn = FullyQualifiedName.getTableFQN(columnFqn);
-
-    // Get the table with columns
-    TableRepository tableRepository = (TableRepository) Entity.getEntityRepository(Entity.TABLE);
-    Table table =
-        tableRepository.getByName(null, tableFqn, tableRepository.getFields("columns,tags"));
-
-    // Find the column by FQN
-    Column targetColumn = findColumnByFqn(table.getColumns(), columnFqn);
-    if (targetColumn == null) {
-      throw new IllegalArgumentException("Column not found: " + columnFqn);
-    }
-
-    // Validate mutually exclusive tags
-    Map<String, List<TagLabel>> allAssetTags =
-        daoCollection.tagUsageDAO().getTagsByPrefix(columnFqn, "%", true);
-    checkMutuallyExclusiveForParentAndSubField(
-        columnFqn,
-        FullyQualifiedName.buildHash(columnFqn),
-        allAssetTags,
-        new ArrayList<>(Collections.singleton(tagLabel)),
-        false);
-
-    if (!dryRun && nullOrEmpty(result.getFailedRequest())) {
-      List<TagLabel> columnTags = new ArrayList<>(listOrEmpty(targetColumn.getTags()));
-      columnTags.add(tagLabel);
-      applyTags(getUniqueTags(columnTags), columnFqn);
-      searchRepository.updateEntity(table.getEntityReference());
-      RdfUpdater.updateEntity(table);
-    }
-
-    success.add(new BulkResponse().withRequest(columnRef));
-    result.setNumberOfRowsPassed(result.getNumberOfRowsPassed() + 1);
-  }
-
-  private Column findColumnByFqn(List<Column> columns, String columnFqn) {
-    if (columns == null) {
-      return null;
-    }
-    for (Column column : columns) {
-      if (columnFqn.equals(column.getFullyQualifiedName())) {
-        return column;
-      }
-      // Check nested columns
-      if (column.getChildren() != null) {
-        Column nested = findColumnByFqn(column.getChildren(), columnFqn);
-        if (nested != null) {
-          return nested;
-        }
-      }
-    }
-    return null;
-  }
-
   @Override
   public BulkOperationResult bulkRemoveAndValidateTagsToAssets(
       UUID classificationTagId, BulkAssetsRequestInterface request) {
@@ -704,17 +619,6 @@ public class TagRepository extends EntityRepository<Tag> {
       // Update Result Processed
       result.setNumberOfRowsProcessed(result.getNumberOfRowsProcessed() + 1);
 
-      // Handle column assets specially - columns don't have their own repository
-      if (Entity.TABLE_COLUMN.equals(ref.getType())) {
-        try {
-          removeTagFromColumn(ref, tag, dryRun, success, result);
-        } catch (Exception ex) {
-          LOG.error("Error removing tag from column: {}", ref.getFullyQualifiedName(), ex);
-          result.setNumberOfRowsFailed(result.getNumberOfRowsFailed() + 1);
-        }
-        continue;
-      }
-
       EntityRepository<?> entityRepository = Entity.getEntityRepository(ref.getType());
       EntityInterface asset =
           entityRepository.get(null, ref.getId(), entityRepository.getFields("id"));
@@ -738,43 +642,6 @@ public class TagRepository extends EntityRepository<Tag> {
     }
 
     return result.withSuccessRequest(success);
-  }
-
-  /**
-   * Remove a tag from a column through its parent table.
-   */
-  private void removeTagFromColumn(
-      EntityReference columnRef,
-      Tag tag,
-      boolean dryRun,
-      List<BulkResponse> success,
-      BulkOperationResult result) {
-    String columnFqn = columnRef.getFullyQualifiedName();
-    if (columnFqn == null) {
-      throw new IllegalArgumentException("Column FQN is required");
-    }
-
-    // Extract table FQN from column FQN (format: service.database.schema.table.column[.nested...])
-    String tableFqn = FullyQualifiedName.getTableFQN(columnFqn);
-
-    // Get the table — also validates that the column's parent table exists
-    TableRepository tableRepository = (TableRepository) Entity.getEntityRepository(Entity.TABLE);
-    Table table = tableRepository.getByName(null, tableFqn, tableRepository.getFields("columns"));
-
-    if (!dryRun) {
-      // Remove the tag from the column
-      daoCollection
-          .tagUsageDAO()
-          .deleteTagsByTagAndTargetEntity(tag.getFullyQualifiedName(), columnFqn);
-    }
-    success.add(new BulkResponse().withRequest(columnRef));
-    result.setNumberOfRowsPassed(result.getNumberOfRowsPassed() + 1);
-
-    if (!dryRun) {
-      // Update the parent table's search index
-      searchRepository.updateEntity(table.getEntityReference());
-      RdfUpdater.updateEntity(table);
-    }
   }
 
   @Override

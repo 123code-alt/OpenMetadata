@@ -28,7 +28,6 @@ import org.openmetadata.schema.type.Relationship;
 import org.openmetadata.schema.type.change.ChangeSource;
 import org.openmetadata.service.Entity;
 import org.openmetadata.service.jdbi3.EntityTimeSeriesDAO.OrderBy;
-import org.openmetadata.service.resources.kpi.KpiResource;
 import org.openmetadata.service.util.EntityUtil;
 import org.openmetadata.service.util.EntityUtil.RelationIncludes;
 
@@ -42,7 +41,7 @@ public class KpiRepository extends EntityRepository<Kpi> {
 
   public KpiRepository() {
     super(
-        KpiResource.COLLECTION_PATH,
+        "/v1/kpi/",
         KPI,
         Kpi.class,
         Entity.getCollectionDAO().kpiDAO(),

@@ -41,7 +41,6 @@ import org.openmetadata.schema.utils.JsonUtils;
 import org.openmetadata.schema.utils.ResultList;
 import org.openmetadata.service.Entity;
 import org.openmetadata.service.exception.EntityNotFoundException;
-import org.openmetadata.service.resources.datainsight.system.DataInsightSystemChartResource;
 import org.openmetadata.service.search.SearchClient;
 import org.openmetadata.service.socket.WebSocketManager;
 import org.openmetadata.service.socket.messages.ChartDataStreamMessage;
@@ -134,7 +133,7 @@ public class DataInsightSystemChartRepository extends EntityRepository<DataInsig
 
   public DataInsightSystemChartRepository() {
     super(
-        DataInsightSystemChartResource.COLLECTION_PATH,
+        "/v1/analytics/dataInsights/system/charts",
         DATA_INSIGHT_CUSTOM_CHART,
         DataInsightCustomChart.class,
         Entity.getCollectionDAO().dataInsightCustomChartDAO(),

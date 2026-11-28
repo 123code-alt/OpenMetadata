@@ -68,7 +68,6 @@ import org.openmetadata.service.events.lifecycle.EntityLifecycleEventDispatcher;
 import org.openmetadata.service.exception.EntityNotFoundException;
 import org.openmetadata.service.jdbi3.FeedRepository.TaskWorkflow;
 import org.openmetadata.service.jdbi3.FeedRepository.ThreadContext;
-import org.openmetadata.service.resources.domains.DataProductResource;
 import org.openmetadata.service.resources.feeds.MessageParser.EntityLink;
 import org.openmetadata.service.rules.RuleEngine;
 import org.openmetadata.service.rules.RuleValidationException;
@@ -103,7 +102,7 @@ public class DataProductRepository extends EntityRepository<DataProduct> {
 
   protected DataProductRepository(boolean registerEntity) {
     super(
-        DataProductResource.COLLECTION_PATH,
+        "/v1/dataProducts/",
         Entity.DATA_PRODUCT,
         DataProduct.class,
         Entity.getCollectionDAO().dataProductDAO(),
